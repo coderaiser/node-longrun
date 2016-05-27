@@ -1,6 +1,6 @@
 # Longrun
 
-Run set of commands in group of directories. Based on [runny](https://github.com/coderaiser/runny "Runny").
+Run set of commands in group of directories. Based on [runny](https://github.com/coderaiser/node-runny "Runny").
 
 ## Install
 
