@@ -31,13 +31,13 @@ Options:
 First thing first, you should init new runner:
 
 ```sh
-longrun init master -c "pwd"
+$ longrun init master -c "pwd"
 ```
 
 Lets list what we have in `master` runner:
 
 ```sh
-longrun list master
+$ longrun list master
 * master
 > pwd
 |  ~/longrun
@@ -46,9 +46,9 @@ longrun list master
 Great. Now lets add another directory:
 
 ```sh
-cd ../cloudcmd
-longrun add master
-longrun list master
+$ cd ../cloudcmd
+$ longrun add master
+$ longrun list master
 * master
 > pwd
 |  ~/longrun
@@ -58,7 +58,7 @@ longrun list master
 Now we can execute `master` runner with:
 
 ```sh
-longrun run master
+$ longrun run master
 /home/coderaiser/longrun
 /home/coderaiser/cloudcmd
 ```
@@ -66,8 +66,8 @@ longrun run master
 Nice! Lets add one more runner to make things more fun:
 
 ```sh
-longrun init who -c whoami
-longrun list
+$ longrun init who -c whoami
+$ longrun list
 master
 who
 ```
@@ -75,7 +75,7 @@ who
 And execute it:
 
 ```sh
-longrun run
+$ longrun run
 /home/coderaiser/longrun
 /home/coderaiser/cloudcmd
 coderaiser
