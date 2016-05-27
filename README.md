@@ -83,6 +83,25 @@ coderaiser
 
 As you see you can add as much runners as you wish, and run one or all of them.
 
+## How it works?
+
+From the inside `~/.longrun.json` it is just an array of `runny` objects that could be easily edited with text editor:
+
+```json
+[{
+    "command": "pwd",
+    "directories": [
+        "~/longrun",
+        "~/cloudcmd",
+    ]
+}, {
+    "command": "whoami",
+    "directories": [
+        "~/cloudcmd"
+    ]
+}]
+```
+
 ## License
 
 MIT
