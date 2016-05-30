@@ -74,7 +74,7 @@ test('longrun: events: error', (t) => {
 test('longrun: a few runners', (t) => {
     let count = 0;
     
-    const emitter= longrun([{
+    const emitter = longrun([{
         command: 'pwd',
         directories: [
             __dirname

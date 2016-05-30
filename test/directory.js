@@ -4,7 +4,7 @@ const directory = require('../lib/directory');
 const test = require('tape');
 
 test('longrun: directory: add', (t) => {
-    const runner =[{
+    const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [
@@ -37,7 +37,7 @@ test('longrun: directory: add: can not find', (t) => {
 });
 
 test('longrun: directory: remove', (t) => {
-    const runner =[{
+    const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [

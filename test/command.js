@@ -4,7 +4,7 @@ const command = require('../lib/command');
 const test = require('tape');
 
 test('longrun: command', (t) => {
-    const runner =[{
+    const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [
@@ -22,7 +22,7 @@ test('longrun: command', (t) => {
 });
 
 test('longrun: command: can not find', (t) => {
-    const runner =[{
+    const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [
