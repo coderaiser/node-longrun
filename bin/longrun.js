@@ -34,7 +34,7 @@ const args = yargs
     .usage('usage: longrun [command] [options]')
     .command('init', 'Init runner', (yargs) => {
         return yargs.strict()
-            .fail(fail('run'))
+            .fail(fail('init'))
             .usage('usage: longrun init [name] [options]')
             .option('c', {
                 alias: 'command',
