@@ -7,13 +7,59 @@ if (/^-v|--version$/.test(argv)) {
     version();
     exit();
 }
+const Emitter = require('events').EventEmitter;
 
 const currify = require('currify');
+const waterfall = require('async/waterfall');
+
+const read = require('../lib/read');
+const write = require('../lib/write');
+
+const pipeline = (argv, options, fn) => {
+    waterfall([
+        (cb) => read(cb),
+        (data, cb) => {
+            fn(argv, data, cb);
+        },
+        (data, cb) => {
+            if (!options.readOnly)
+                write(data, cb)
+            else
+                cb(null, logIfData(data))
+        }
+    ], exitIfError);
+};
 
 function get(name) {
     return (argv) => {
-        require(`../lib/command/${name}`)(argv);
+        const command  = require(`../lib/command/${name}`);
+        const options = {
+            readOnly: name === 'list'
+        };
+        
+        if (name === 'run')
+            run(argv, command);
+        else
+            pipeline(argv, options, command);
     }
+}
+
+function run(argv, fn) {
+    waterfall([
+        (cb) => read(cb),
+        (runners, cb) => {
+            fn(argv, runners, cb)
+                .on('write', (data) => {
+                    process.stdout.write(data);
+                })
+                .on('error', (error) => {
+                    process.stderr.write(error);
+                })
+                .on('exit', () => {
+                    cb();
+                })
+        }
+        ], exitIfError);
 }
 
 const fail = currify((command, msg) => {
@@ -108,11 +154,17 @@ function version() {
 }
 
 function crash(error) {
-    console.error(error.message);
+    const env = process.env;
+    const msg = env.LONGRUN_DEV ? error : error.message;
+    console.error(msg);
     process.exit(-1);
 }
 
 function exitIfError(error) {
     error && crash(error);
+}
+
+function logIfData(data) {
+    data && process.stdout.write(data);
 }
 
