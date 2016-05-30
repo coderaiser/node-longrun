@@ -102,6 +102,23 @@ From the inside `~/.longrun.json` it is just an array of `runny` objects that co
 }]
 ```
 
+## Programmatical use
+
+```js
+const longrun = require('longrun');
+const runner = longrun([
+    command: 'pwd',
+    directories: [
+        '~/longrun',
+        '~/cloudcmd'
+    ]
+]);
+
+runner.on('data', (data) => process.stdout.write(data))
+    .on('error', (error) => process.stderr.write(error))
+    .on('exit', () => console.log('exit'));
+```
+
 ## License
 
 MIT
