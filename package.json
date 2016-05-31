@@ -32,6 +32,9 @@
     "url": "https://github.com/coderaiser/node-longrun/issues"
   },
   "homepage": "https://github.com/coderaiser/node-longrun",
+  "engines": {
+    "node": ">=4"
+  },
   "devDependencies": {
     "coveralls": "^2.11.6",
     "jscs": "^3.0.1",
