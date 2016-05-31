@@ -53,7 +53,7 @@ function run(argv, fn) {
                 process.stdout.write(data);
             })
             .on('error', (error) => {
-                process.stderr.write(error);
+                process.stderr.write(error.message);
             })
             .on('exit', () => {
                 cb();
