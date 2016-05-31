@@ -47,19 +47,18 @@ function get(name) {
 function run(argv, fn) {
     waterfall([
         (cb) => read(cb),
-        (runners, cb) => {
-            fn(argv, runners, cb)
-                .on('write', (data) => {
-                    process.stdout.write(data);
-                })
-                .on('error', (error) => {
-                    process.stderr.write(error);
-                })
-                .on('exit', () => {
-                    cb();
-                })
-        }
-        ], exitIfError);
+        (runners, cb) => fn(argv, runners, cb),
+        (emitter, cb) => emitter
+            .on('data', (data) => {
+                process.stdout.write(data);
+            })
+            .on('error', (error) => {
+                process.stderr.write(error);
+            })
+            .on('exit', () => {
+                cb();
+            })
+    ], exitIfError);
 }
 
 const fail = currify((command, msg) => {
