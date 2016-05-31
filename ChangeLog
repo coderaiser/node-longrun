@@ -1,3 +1,14 @@
+2016.05.31, v1.1.1
+
+fix:
+- (run) events
+
+feature:
+- (package) test: add globstar
+- (longrun) add support of node v4
+- (package) add engines
+
+
 2016.05.30, v1.1.0
 
 fix:
