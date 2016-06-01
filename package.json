@@ -4,7 +4,7 @@
   "description": "Run set of commands in group of directories",
   "main": "lib/longrun.js",
   "scripts": {
-    "test": "globstar -- tape 'test/**/*.js'",
+    "test": "tape 'test/**/*.js'",
     "watch": "nodemon --watch lib --watch test --exec",
     "watch:test": "watch -- npm test",
     "jscs": "jscs --esnext lib test",
@@ -37,7 +37,6 @@
   },
   "devDependencies": {
     "coveralls": "^2.11.6",
-    "globstar": "^1.0.0",
     "jscs": "^3.0.1",
     "jshint": "^2.8.0",
     "minify": "^2.0.4",
@@ -45,7 +44,7 @@
     "nyc": "^6.1.1",
     "redrun": "^3.0.0",
     "sinon": "^1.17.4",
-    "tape": "^4.2.0"
+    "tape": "^4.5.1"
   },
   "dependencies": {
     "async": "^2.0.0-rc.4",
