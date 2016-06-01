@@ -7,9 +7,7 @@ const Emitter = require('events').EventEmitter;
 const test = require('tape');
 
 test('longrun: arguments: should throw when no runners', (t) => {
-    const fn = () => longrun();
-    
-    t.throws(fn, /runItems should be an array!/, 'should throw when no runners');
+    t.throws(longrun, /runItems should be an array!/, 'should throw when no runners');
     t.end();
 });
 
