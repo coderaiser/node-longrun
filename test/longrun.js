@@ -6,15 +6,15 @@ const Emitter = require('events').EventEmitter;
 
 const test = require('tape');
 
-test('longrun: arguments: should throw when no runners', (t) => {
+test('longrun: arguments: no runners', (t) => {
     t.throws(longrun, /runItems should be an array!/, 'should throw when no runners');
     t.end();
 });
 
-test('longrun: result: should return emitter', (t) => {
+test('longrun: result: emitter', (t) => {
     let emitter = longrun([]);
     
-    t.ok(emitter instanceof Emitter, 'longrun should return emitter');
+    t.ok(emitter instanceof Emitter, 'should return emitter');
     t.end();
 });
 
