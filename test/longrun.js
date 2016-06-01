@@ -49,8 +49,13 @@ test('longrun: events: data', (t) => {
         ]
     }]);
     
+    let wasData;
     emitter.on('data', () => {
-        t.pass('longrun should emit "data" event');
+        wasData = true;
+    });
+    
+    emitter.on('exit', () => {
+        t.ok(wasData, 'longrun should emit "data" event');
         t.end();
     });
 });
