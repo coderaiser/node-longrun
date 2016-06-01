@@ -55,3 +55,4 @@ test('longrun: command: arguments: no runners', (t) => {
     t.throws(fn, /runners should be an array!/, 'should throw when no runners');
     t.end();
 });
+
