@@ -11,9 +11,14 @@ const Emitter = require('events').EventEmitter;
 
 const currify = require('currify');
 const waterfall = require('async/waterfall');
+const squad = require('squad');
+const apart = require('apart');
+const tildify = require('tildify');
 
 const read = require('../lib/read');
 const write = require('../lib/write');
+
+const cwd = squad(tildify, process.cwd);
 
 const pipeline = (argv, options, fn) => {
     waterfall([
@@ -89,7 +94,9 @@ const args = yargs
     }, get('init'))
     .command('add', 'Add current directory to runner', (yargs) => {
         return yargs.usage('usage: longrun add [name]');
-    }, get('add'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'add', argv), write], exitIfError);
+    })
     .command('run', 'Run commands from ~/.longrun.json', (yargs) => {
         return yargs.strict()
             .fail(fail('run'))
@@ -99,7 +106,9 @@ const args = yargs
         return yargs.strict()
             .fail(fail('remove'))
             .usage('usage: longrun remove [name]');
-    }, get('remove'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'remove', argv), write], exitIfError);
+    })
     .command('clear', 'Clear directories list from runner', (argv) => {
         return yargs.strict()
             .fail(fail('clear'))
@@ -147,6 +156,19 @@ if (args.version)
     version();
 else if (!args._.length)
     yargs.showHelp();
+
+function getName(argv) {
+    return argv._[1];
+}
+
+function command(cmd, argv, runners, cb) {
+    const fn = require(`../lib/command/${cmd}`);
+    
+    fn(runners, cb, {
+        name: getName(argv),
+        cwd: cwd()
+    });
+}
 
 function version() {
     console.log(`v${require('../package.json').version}`);
