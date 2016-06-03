@@ -33,6 +33,24 @@ test('longrun: add directory to runner', (t) => {
     }, runItem);
 });
 
+test('longrun: add directory to runner', (t) => {
+    const runners = [{
+        name: 'patch',
+        command: 'wisdom patch',
+        directories: ['~', DIR]
+    }];
+    
+    const runItem = {
+        name: 'patch',
+        cwd: DIR
+    };
+    
+    add(runners, (error) => {
+        t.equal(error && error.message, 'current directory already in runner "patch"', 'should return error');
+        t.end();
+    }, runItem);
+});
+
 test('longrun: add directory to runner: no name', (t) => {
     add([], (error) => {
         t.equal(error.message, 'name could not be empty', 'should throw when no name');

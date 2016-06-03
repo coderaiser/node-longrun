@@ -21,7 +21,7 @@ test('longrun: directory: add', (t) => {
     t.end();
 });
 
-test('longrun: directory: add: can not find', (t) => {
+test('longrun: directory: add: name absent', (t) => {
     const runners = [{
         name: 'master',
         command: 'git push origin master',
@@ -51,6 +51,21 @@ test('longrun: directory: remove', (t) => {
     expect[0].directories = [];
     
     t.deepEqual(result, expect, 'should remove directory');
+    t.end();
+});
+
+test('longrun: directory: remove: directory absent', (t) => {
+    const runners = [{
+        name: 'master',
+        command: 'git push origin master',
+        directories: [
+            '~/longrun'
+        ]
+    }];
+    
+    const fn = () => directory.remove('master', '~/cloudcmd', runners);
+    
+    t.throws(fn, /current directory is absent in runner "master"/, 'should throw when drectory not found');
     t.end();
 });
 
