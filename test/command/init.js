@@ -62,7 +62,7 @@ test('longrun: init runner: name exist', (t) => {
     }];
     
     init(argv, runners, (error) => {
-        t.equal(error.message, 'name "patch" already exist', 'should throw when name exist');
+        t.equal(error.message, 'runner with name "patch" already exist', 'should throw when name exist');
         t.end();
     });
 });
