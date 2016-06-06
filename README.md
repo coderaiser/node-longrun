@@ -19,7 +19,7 @@ Commands:
   remove  Remove current directory from runner
   list    List all runners
   clear   Clear directories list from runner
-  fin     Remove runner(s)
+  finish  Remove runner(s)
 
 Options:
   -v, --version  Show version  [boolean]

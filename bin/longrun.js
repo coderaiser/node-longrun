@@ -134,11 +134,11 @@ const args = yargs
                 description: 'Show commands'
             })
     }, get('list'))
-    .command('fin', 'Remove runner(s)', (yargs) => {
+    .command('finish', 'Remove runner(s)', (yargs) => {
         return yargs.strict()
-            .fail(fail('fin'))
+            .fail(fail('finish'))
             .usage('usage: longrun init [name] [options]')
-    }, get('fin'))
+    }, get('finish'))
     .option('v', {
         alias: 'version',
         type: 'boolean',
