@@ -75,7 +75,7 @@ who
 And execute it:
 
 ```sh
-$ longrun run
+$ longrun run -a
 /home/coderaiser/longrun
 /home/coderaiser/cloudcmd
 coderaiser

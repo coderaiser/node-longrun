@@ -42,28 +42,21 @@ function get(name) {
             readOnly: name === 'list'
         };
         
-        if (name === 'run')
-            run(argv, command);
-        else
-            pipeline(argv, options, command);
+        pipeline(argv, options, command);
     }
 }
 
-function run(argv, fn) {
-    waterfall([
-        (cb) => read(cb),
-        (runners, cb) => fn(argv, runners, cb),
-        (emitter, cb) => emitter
-            .on('data', (data) => {
-                process.stdout.write(data);
-            })
-            .on('error', (error) => {
-                process.stderr.write(error.message);
-            })
-            .on('exit', () => {
-                cb();
-            })
-    ], exitIfError);
+const run = (emitter, cb) => {
+    emitter
+        .on('data', (data) => {
+            process.stdout.write(data);
+        })
+        .on('error', (error) => {
+               process.stderr.write(error.message);
+        })
+        .on('exit', () => {
+            cb();
+        });
 }
 
 const fail = currify((command, msg) => {
@@ -99,9 +92,16 @@ const args = yargs
     })
     .command('run', 'Run commands from ~/.longrun.json', (yargs) => {
         return yargs.strict()
+            .usage('usage: longrun run [name] [options]')
+            .option('a', {
+                alias: 'all',
+                type: 'boolean',
+                description: 'Run all runners'
+            })
             .fail(fail('run'))
-            .usage('usage: longrun run [name]');
-    }, get('run'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'run', argv), run], exitIfError);
+    })
     .command('remove', 'Remove current directory from runner', (argv) => {
         return yargs.strict()
             .fail(fail('remove'))
@@ -163,11 +163,15 @@ function getName(argv) {
 
 function command(cmd, argv, runners, cb) {
     const fn = require(`../lib/command/${cmd}`);
-    
-    fn(runners, cb, {
+    const runner = {
         name: getName(argv),
         cwd: cwd()
-    });
+    };
+    
+    if (typeof argv.all !== 'undefined')
+        runner.all = argv.all;
+    
+    fn(runners, cb, runner);
 }
 
 function version() {
