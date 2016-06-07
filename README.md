@@ -1,4 +1,4 @@
-# Longrun
+# Longrun [![License][LicenseIMGURL]][LicenseURL] [![NPM version][NPMIMGURL]][NPMURL] [![Dependency Status][DependencyStatusIMGURL]][DependencyStatusURL] [![Build Status][BuildStatusIMGURL]][BuildStatusURL] [![Coverage Status][CoverageIMGURL]][CoverageURL]
 
 Run set of commands in group of directories. Based on [runny](https://github.com/coderaiser/node-runny "Runny").
 
@@ -122,4 +122,16 @@ runner.on('data', (data) => process.stdout.write(data))
 ## License
 
 MIT
+
+[NPMIMGURL]:                https://img.shields.io/npm/v/longrun.svg?style=flat
+[BuildStatusIMGURL]:        https://img.shields.io/travis/coderaiser/node-longrun/master.svg?style=flat
+[DependencyStatusIMGURL]:   https://img.shields.io/gemnasium/coderaiser/node-longrun.svg?style=flat
+[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMURL]:                   https://npmjs.org/package/longrun "npm"
+[BuildStatusURL]:           https://travis-ci.org/coderaiser/node-longrun  "Build Status"
+[DependencyStatusURL]:      https://gemnasium.com/coderaiser/node-longrun "Dependency Status"
+[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
+
+[CoverageURL]:              https://coveralls.io/github/coderaiser/node-longrun?branch=master
+[CoverageIMGURL]:           https://coveralls.io/repos/coderaiser/node-longrun/badge.svg?branch=master&service=github
 
