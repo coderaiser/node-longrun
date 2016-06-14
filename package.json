@@ -48,6 +48,7 @@
     "tape": "^4.5.1"
   },
   "dependencies": {
+    "apart": "^1.0.1",
     "async": "^2.0.0-rc.4",
     "currify": "^1.0.0",
     "readjson": "^1.1.3",
