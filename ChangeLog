@@ -1,3 +1,12 @@
+2016.06.14, v2.0.1
+
+fix:
+- (package) add bin
+
+feature:
+- (directory) add node v4 support: [].includes -> ~[].indexOf
+
+
 2016.06.06, v2.0.0
 
 feature:
