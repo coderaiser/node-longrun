@@ -174,7 +174,7 @@ function options(cmd, argv) {
             directories: argv.directories,
             commands: argv.commands,
             all: argv.all,
-            name: argv[1]
+            name: argv._[1]
         }
 }
 
