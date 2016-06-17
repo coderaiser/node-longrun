@@ -27,10 +27,7 @@ const pipeline = (argv, options, fn) => {
             fn(argv, data, cb);
         },
         (data, cb) => {
-            if (!options.readOnly)
-                write(data, cb)
-            else
-                cb(null, logIfData(data))
+            write(data, cb)
         }
     ], exitIfError);
 };
@@ -38,10 +35,6 @@ const pipeline = (argv, options, fn) => {
 function get(name) {
     return (argv) => {
         const command  = require(`../lib/command/${name}`);
-        const options = {
-            readOnly: name === 'list'
-        };
-        
         pipeline(argv, options, command);
     }
 }
@@ -133,7 +126,9 @@ const args = yargs
                 type: 'bool',
                 description: 'Show commands'
             })
-    }, get('list'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
+    })
     .command('finish', 'Remove runner(s)', (yargs) => {
         return yargs.strict()
             .fail(fail('finish'))
@@ -163,15 +158,24 @@ function getName(argv) {
 
 function command(cmd, argv, runners, cb) {
     const fn = require(`../lib/command/${cmd}`);
-    const runner = {
-        name: getName(argv),
-        cwd: cwd()
-    };
     
-    if (typeof argv.all !== 'undefined')
-        runner.all = argv.all;
+    fn(runners, options(cmd, argv), cb);
+}
+
+function options(cmd, argv) {
+    if (/^(remove|run)$/.test(cmd))
+        return {
+            name: getName(argv),
+            cwd: cwd()
+        };
     
-    fn(runners, cb, runner);
+    if (cmd === 'list')
+        return {
+            directories: argv.directories,
+            commands: argv.commands,
+            all: argv.all,
+            name: argv[1]
+        }
 }
 
 function version() {
