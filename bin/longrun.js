@@ -52,7 +52,7 @@ const run = (emitter, cb) => {
             process.stdout.write(data);
         })
         .on('error', (error) => {
-               process.stderr.write(error.message);
+            process.stderr.write(error.message);
         })
         .on('exit', () => {
             cb();
