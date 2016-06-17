@@ -50,7 +50,7 @@ test('longrun: events: data', (t) => {
     }]);
     
     let wasData;
-    emitter.on('data', () => {
+    emitter.on('data', (data) => {
         wasData = true;
     });
     
