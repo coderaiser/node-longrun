@@ -163,19 +163,28 @@ function command(cmd, argv, runners, cb) {
 }
 
 function options(cmd, argv) {
-    if (/^(remove|run)$/.test(cmd))
-        return {
-            name: getName(argv),
+    const result = {
+        name: getName(argv)
+    };
+    
+    const assign = Object.assign;
+    
+    if (cmd === 'remove')
+        return assign(result, {
             cwd: cwd()
-        };
+        });
+    
+    if (cmd === 'run')
+        return assign({
+            all: argv.all
+        });
     
     if (cmd === 'list')
-        return {
+        return assign({
             directories: argv.directories,
             commands: argv.commands,
             all: argv.all,
-            name: argv._[1]
-        }
+        });
 }
 
 function version() {
