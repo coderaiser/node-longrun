@@ -169,18 +169,23 @@ function options(cmd, argv) {
     
     const assign = Object.assign;
     
-    if (cmd === 'remove')
+    if (cmd === 'name')
+        return assign(result, {
+            name: get
+        });
+    
+    if (/^(add|remove)$/.test(cmd))
         return assign(result, {
             cwd: cwd()
         });
     
     if (cmd === 'run')
-        return assign({
+        return assign(result, {
             all: argv.all
         });
     
     if (cmd === 'list')
-        return assign({
+        return assign(result, {
             directories: argv.directories,
             commands: argv.commands,
             all: argv.all,
