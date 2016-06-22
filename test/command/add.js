@@ -26,11 +26,11 @@ test('longrun: add directory to runner', (t) => {
         cwd: DIR
     };
     
-    add(runners, (error, result) => {
+    add(runners, runItem, (error, result) => {
         t.notOk(error, 'should not be error');
         t.deepEqual(result, expect, 'should add directory to runner');
         t.end();
-    }, runItem);
+    });
 });
 
 test('longrun: add directory to runner', (t) => {
@@ -45,16 +45,16 @@ test('longrun: add directory to runner', (t) => {
         cwd: DIR
     };
     
-    add(runners, (error) => {
+    add(runners, runItem, (error) => {
         t.equal(error && error.message, 'current directory already in runner "patch"', 'should return error');
         t.end();
-    }, runItem);
+    });
 });
 
 test('longrun: add directory to runner: no name', (t) => {
-    add([], (error) => {
+    add([], {}, (error) => {
         t.equal(error.message, 'name could not be empty', 'should throw when no name');
         t.end();
-    }, {});
+    });
 });
 
