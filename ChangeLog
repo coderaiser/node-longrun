@@ -1,3 +1,10 @@
+2016.06.23, v2.2.0
+
+feature:
+- (package) redrun v4.0.0
+- (longrun) clear: could take more then one name
+
+
 2016.06.21, v2.1.2
 
 fix:
