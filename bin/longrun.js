@@ -102,11 +102,13 @@ const args = yargs
     }, (argv) => {
         waterfall([read, apart(command, 'remove', argv), write], exitIfError);
     })
-    .command('clear', 'Clear directories list from runner', (argv) => {
+    .command('clear', 'Clear directories list from runners', (argv) => {
         return yargs.strict()
             .fail(fail('clear'))
-            .usage('usage: longrun clear[name]');
-    }, get('clear'))
+            .usage('usage: longrun clear [names]');
+    }, (argv) => {
+        waterfall([read, apart(command, 'clear', argv), write], exitIfError);
+    })
     .command('list', 'List all runners', (yargs) => {
         return yargs.strict()
             .usage('usage: longrun list [options]')
@@ -156,6 +158,10 @@ function getName(argv) {
     return argv._[1];
 }
 
+function getNames() {
+    return argv.slice(1);
+}
+
 function command(cmd, argv, runners, cb) {
     const fn = require(`../lib/command/${cmd}`);
     
@@ -168,6 +174,11 @@ function options(cmd, argv) {
     };
     
     const assign = Object.assign;
+    
+    if (cmd === 'clear')
+        return {
+            names: getNames(argv) || []
+        };
     
     if (cmd === 'name')
         return assign(result, {

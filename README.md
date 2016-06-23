@@ -18,7 +18,7 @@ Commands:
   run     Run commands from ~/.longrun.json
   remove  Remove current directory from runner
   list    List all runners
-  clear   Clear directories list from runner
+  clear   Clear directories list from runners
   finish  Remove runner(s)
 
 Options:
