@@ -76,13 +76,13 @@ test('longrun: list all runners', (t) => {
 
 test('longrun: list runner', (t) => {
     const expect = [
-        '* patch',
-        '> wisdom patch',
+        '* minor',
+        '> wisdom minor',
         '|  ~',
         ].join('\n') + '\n';
     
-    list(runners, {name: 'patch'}, (error, result) => {
-        t.equal(expect, result, 'should list runner');
+    list(runners, {name: 'minor'}, (error, result) => {
+        t.equal(result, expect, 'should list runner');
         t.end();
     });
 });
