@@ -44,3 +44,12 @@ test('longrun: clear directory of runner: name doesn\'t exist', (t) => {
     });
 });
 
+test('longrun: clear directory of runner: name is empty', (t) => {
+    const item = {
+        names: []
+    };
+    clear([], item, (error) => {
+        t.equal(error.message, 'name could not be empty', 'should throw when name is empty');
+        t.end();
+    });
+});
