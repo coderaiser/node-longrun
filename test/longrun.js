@@ -89,7 +89,7 @@ test('longrun: a few runners', (t) => {
         ]
     }]);
     
-    emitter.on('data', (data) => {
+    emitter.on('data', () => {
         ++count;
     });
     
