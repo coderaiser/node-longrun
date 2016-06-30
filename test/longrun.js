@@ -43,7 +43,7 @@ test('longrun: events: exit when there is command to run', (t) => {
 
 test('longrun: events: data', (t) => {
     let emitter = longrun([{
-        command: 'pwd',
+        command: 'ls',
         directories: [
             __dirname
         ]
@@ -78,19 +78,18 @@ test('longrun: a few runners', (t) => {
     let count = 0;
     
     const emitter = longrun([{
-        command: 'pwd',
+        command: 'ls',
         directories: [
             __dirname
         ]
     }, {
-        command: 'pwd',
+        command: 'ls',
         directories: [
             __dirname
         ]
     }]);
     
     emitter.on('data', (data) => {
-        t.equal(data, `${__dirname}\n`, 'data should be dirname');
         ++count;
     });
     
