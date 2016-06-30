@@ -105,6 +105,11 @@ const args = yargs
     .command('clear', 'Clear directories list from runners', (argv) => {
         return yargs.strict()
             .fail(fail('clear'))
+            .option('a', {
+                alias: 'all',
+                type: 'bool',
+                description: 'Clear directories from all runners'
+            })
             .usage('usage: longrun clear [names]');
     }, (argv) => {
         waterfall([read, apart(command, 'clear', argv), write], exitIfError);
@@ -177,6 +182,7 @@ function options(cmd, argv) {
     
     if (cmd === 'clear')
         return {
+            all: argv.all,
             names: getNames(argv) || []
         };
     

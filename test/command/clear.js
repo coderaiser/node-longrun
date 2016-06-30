@@ -53,3 +53,36 @@ test('longrun: clear directory of runner: name is empty', (t) => {
         t.end();
     });
 });
+
+test('longrun: clear directories from all runners', (t) => {
+    const runners = [{
+        name: 'patch',
+        command: 'wisdom patch',
+        directories: ['~', '/tmp']
+    }, {
+        name: 'minor',
+        command: 'wisdom monor',
+        directories: ['~', '/tmp']
+    }];
+    
+    const expect = [{
+        name: 'patch',
+        command: 'wisdom patch',
+        directories: []
+    }, {
+        name: 'minor',
+        command: 'wisdom monor',
+        directories: []
+    }];
+    
+    const options = {
+        all: true,
+        names: []
+    };
+    
+    clear(runners, options, (error, result) => {
+        t.notOk(error, 'should not be error');
+        t.deepEqual(result, expect, 'result should be with no directories');
+        t.end();
+    });
+});
