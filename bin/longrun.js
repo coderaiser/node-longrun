@@ -110,7 +110,7 @@ const args = yargs
                 type: 'bool',
                 description: 'Clear directories from all runners'
             })
-            .usage('usage: longrun clear [names]');
+            .usage('usage: longrun clear [names] [options]');
     }, (argv) => {
         waterfall([read, apart(command, 'clear', argv), write], exitIfError);
     })
