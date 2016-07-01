@@ -26,8 +26,9 @@
     "wisdom:done": "npm i -g",
     "6to5:lib": "babel lib -d legacy/lib",
     "6to5:bin": "babel bin -d legacy/bin",
-    "build": "redrun 6to5:* legacy:index",
-    "legacy:index": "echo \"module.exports = require('./lib/longrun');\" > legacy/index.js"
+    "build": "redrun 6to5:* legacy:*",
+    "legacy:index": "echo \"module.exports = require('./lib/longrun');\" > legacy/index.js",
+    "legacy:package": "echo \"module.exports = require('../package');\" > legacy/package.js"
   },
   "repository": {
     "type": "git",

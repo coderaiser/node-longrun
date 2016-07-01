@@ -210,7 +210,7 @@ function options(cmd, argv) {
 }
 
 function version() {
-    console.log(`v${require('../package.json').version}`);
+    console.log(`v${require('../package').version}`);
 }
 
 function crash(error) {
