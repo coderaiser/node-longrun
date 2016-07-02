@@ -12,9 +12,9 @@ test('longrun: run: error', (t) => {
     
     const runItem = {
         name: 'no name'
-    }
+    };
     
-    run(runners, runItem, (error, runner) => {
+    run(runners, runItem, (error) => {
         t.equal(error.message, 'runner with name "no name" doesn\'t exist');
         t.end();
     });
