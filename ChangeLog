@@ -1,3 +1,13 @@
+2016.07.02, v2.3.1
+
+fix:
+- (run) message when runner not found
+- (package) add legacy:package
+
+feature:
+- (longrun) [names] -> [names] [options]
+
+
 2016.06.30, v2.3.0
 
 feature:
