@@ -36,7 +36,7 @@ test('longrun: run: error', (t) => {
         name: 'no name'
     };
     
-    run(runners, runItem, (error, result) => {
+    run(runners, runItem, (error) => {
         t.equal(error.message, 'runner with name "no name" doesn\'t exist');
         t.end();
     });
