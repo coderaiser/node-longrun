@@ -3,6 +3,28 @@
 const run = require('../../lib/command/run');
 const test = require('tape');
 
+test('longrun: run: --all', (t) => {
+    const runners = [{
+        name: 'patch',
+        command: 'echo patch',
+        directories: ['~']
+    }, {
+        name: 'master',
+        command: 'echo master',
+        directories: ['~']
+    }];
+    
+    const runItem = {
+        name: '',
+        all: true
+    };
+    
+    run(runners, runItem, (error) => {
+        t.notOk(error, 'should not be error');
+        t.end();
+    });
+});
+
 test('longrun: run: error', (t) => {
     const runners = [{
         name: 'patch',
@@ -14,7 +36,7 @@ test('longrun: run: error', (t) => {
         name: 'no name'
     };
     
-    run(runners, runItem, (error) => {
+    run(runners, runItem, (error, result) => {
         t.equal(error.message, 'runner with name "no name" doesn\'t exist');
         t.end();
     });
