@@ -64,7 +64,7 @@ const fail = currify((command, msg) => {
 });
 
 const yargs = require('yargs');
-const args = yargs
+const parser = yargs
     .showHelpOnFail(false)
     .strict()
     .usage('usage: longrun [command] [options]')
@@ -79,7 +79,12 @@ const args = yargs
             })
     }, get('init'))
     .command('add', 'Add current directory to runner', (yargs) => {
-        return yargs.usage('usage: longrun add [name]');
+        return yargs.usage('usage: longrun add [name] [options]')
+            .option('l', {
+                alias: 'list',
+                type: 'boolean',
+                description: 'show directory list of runner'
+            });
     }, (argv) => {
         waterfall([read, apart(command, 'add', argv), write], exitIfError);
     })
@@ -91,26 +96,36 @@ const args = yargs
                 type: 'boolean',
                 description: 'Run all runners'
             })
-            .fail(fail('run'))
+            .fail(fail('run'));
     }, (argv) => {
         waterfall([read, apart(command, 'run', argv), run], exitIfError);
     })
     .command('remove', 'Remove current directory from runner', (argv) => {
         return yargs.strict()
-            .fail(fail('remove'))
-            .usage('usage: longrun remove [name]');
+            .usage('usage: longrun remove [name] [options]')
+            .option('l', {
+                alias: 'list',
+                type: 'boolean',
+                description: 'show directory list of runner'
+            })
+            .fail(fail('remove'));
     }, (argv) => {
         waterfall([read, apart(command, 'remove', argv), write], exitIfError);
     })
     .command('clear', 'Clear directories list from runners', (argv) => {
         return yargs.strict()
+            .usage('usage: longrun clear [names] [options]')
             .fail(fail('clear'))
             .option('a', {
                 alias: 'all',
                 type: 'bool',
                 description: 'Clear directories from all runners'
             })
-            .usage('usage: longrun clear [names] [options]');
+            .option('l', {
+                alias: 'list',
+                type: 'boolean',
+                description: 'show directory list of runner'
+            })
     }, (argv) => {
         waterfall([read, apart(command, 'clear', argv), write], exitIfError);
     })
@@ -151,9 +166,10 @@ const args = yargs
         type: 'boolean',
     })
     .help('h')
-    .fail(fail(' '))
-    .argv;
+    .fail(fail(' '));
 
+const args = parser.argv;
+    
 if (args.version)
     version();
 else if (!args._.length)
@@ -171,6 +187,9 @@ function command(cmd, argv, runners, cb) {
     const fn = require(`../lib/command/${cmd}`);
     
     fn(runners, options(cmd, argv), cb);
+    
+    if (/^(add|remove|clear)$/.test(cmd) && argv.list)
+      waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
 }
 
 function options(cmd, argv) {
