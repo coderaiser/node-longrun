@@ -163,8 +163,8 @@ function getName(argv) {
     return argv._[1];
 }
 
-function getNames() {
-    return argv.slice(1);
+function getNames(argv) {
+    return argv._.slice(1);
 }
 
 function command(cmd, argv, runners, cb) {
