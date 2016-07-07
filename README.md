@@ -122,7 +122,7 @@ runner.on('data', (data) => process.stdout.write(data))
 ## Environments
 
 `longrun` developed to work on `node >= 4`.
-Use `longrun-legacy` when doing global install ond `require('longrun/legacy')` on older versions of `node`.
+Use `longrun-legacy` when doing global install and `require('longrun/legacy')` on older versions of `node`.
 
 ## License
 
