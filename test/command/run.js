@@ -3,6 +3,23 @@
 const run = require('../../lib/command/run');
 const test = require('tape');
 
+test('longrun: run', (t) => {
+    const runners = [{
+        name: 'patch',
+        command: 'echo patch',
+        directories: ['~']
+   }];
+   
+    const runItem = {
+        name: 'patch'
+    };
+    
+    run(runners, runItem, (error) => {
+        t.notOk(error, 'should not be error');
+        t.end();
+    });
+});
+
 test('longrun: run: --all', (t) => {
     const runners = [{
         name: 'patch',
