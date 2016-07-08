@@ -42,6 +42,18 @@ test('longrun: run: --all', (t) => {
     });
 });
 
+test('longrun: run: error: empty name', (t) => {
+    const runItem = {
+        name: ''
+    };
+    
+    run([], runItem, (error) => {
+        t.equal(error.message, 'name could not be empty');
+        t.end();
+    });
+});
+
+
 test('longrun: run: error', (t) => {
     const runners = [{
         name: 'patch',
