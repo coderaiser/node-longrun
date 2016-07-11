@@ -41,25 +41,6 @@ test('longrun: events: exit when there is command to run', (t) => {
     });
 });
 
-test('longrun: events: data', (t) => {
-    let emitter = longrun([{
-        command: 'ls',
-        directories: [
-            __dirname
-        ]
-    }]);
-    
-    let wasData;
-    emitter.on('data', () => {
-        wasData = true;
-    });
-    
-    emitter.on('exit', () => {
-        t.ok(wasData, 'longrun should emit "data" event');
-        t.end();
-    });
-});
-
 test('longrun: events: error', (t) => {
     let emitter = longrun([{
         command: 'asdfsdfsdfsdf',
@@ -74,27 +55,3 @@ test('longrun: events: error', (t) => {
     });
 });
 
-test('longrun: a few runners', (t) => {
-    let count = 0;
-    
-    const emitter = longrun([{
-        command: 'ls',
-        directories: [
-            __dirname
-        ]
-    }, {
-        command: 'ls',
-        directories: [
-            __dirname
-        ]
-    }]);
-    
-    emitter.on('data', () => {
-        ++count;
-    });
-    
-    emitter.on('exit', () => {
-        t.equal(count, 2, 'data should be emitted twice');
-        t.end();
-    });
-});
