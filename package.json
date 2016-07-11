@@ -61,7 +61,7 @@
     "jshint": "^2.8.0",
     "nodemon": "^1.9.2",
     "nyc": "^6.1.1",
-    "redrun": "^4.0.0",
+    "redrun": "^5.0.0",
     "tape": "^4.5.1"
   },
   "dependencies": {
