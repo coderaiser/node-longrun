@@ -155,7 +155,9 @@ const parser = yargs
         return yargs.strict()
             .fail(fail('finish'))
             .usage('usage: longrun init [name] [options]')
-    }, get('finish'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'finish', argv), write], exitIfError);
+    })
     .option('v', {
         alias: 'version',
         type: 'boolean',
@@ -199,7 +201,7 @@ function options(cmd, argv) {
     
     const assign = Object.assign;
     
-    if (cmd === 'clear')
+    if (/^(clear|finish)$/.test(cmd))
         return {
             all: argv.all,
             names: getNames(argv) || []
