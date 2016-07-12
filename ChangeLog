@@ -1,3 +1,16 @@
+2016.07.12, v2.5.0
+
+fix:
+- (package) watch:test: watch -> npm run watch
+
+feature:
+- (longrun) finish: add --all
+- (package) add watch:coverage
+- (package) redrun v5.0.0
+- (package) nyc v7.0.0
+- (package) redrun v5.0.0
+
+
 2016.07.08, v2.4.1
 
 feature:
