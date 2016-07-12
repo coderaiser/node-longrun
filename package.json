@@ -15,7 +15,7 @@
   "scripts": {
     "test": "tape 'test/**/*.js'",
     "watch": "nodemon --watch lib --watch test --exec",
-    "watch:test": "watch -- npm test",
+    "watch:test": "npm run watch -- npm test",
     "lint:jscs": "jscs --esnext lib test",
     "lint:jshint": "jshint lib test",
     "lint:eslint": "eslint lib test",
