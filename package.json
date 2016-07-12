@@ -22,6 +22,7 @@
     "lint": "redrun lint:*",
     "jscs-fix": "npm run jscs --fix",
     "coverage": "nyc npm test",
+    "watch:coverage": "redrun watch -- redrun coverage",
     "report": "nyc report --reporter=text-lcov | coveralls",
     "wisdom": "npm run build",
     "wisdom:done": "npm i -g",
