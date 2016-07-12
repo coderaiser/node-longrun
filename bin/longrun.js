@@ -154,7 +154,12 @@ const parser = yargs
     .command('finish', 'Remove runner(s)', (yargs) => {
         return yargs.strict()
             .fail(fail('finish'))
-            .usage('usage: longrun init [name] [options]')
+            .usage('usage: longrun finish [names] [options]')
+            .option('a', {
+                alias: 'all',
+                type: 'boolean',
+                description: 'Remove all runners'
+            })
     }, (argv) => {
         waterfall([read, apart(command, 'finish', argv), write], exitIfError);
     })
