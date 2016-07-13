@@ -1,3 +1,13 @@
+2016.07.13, v2.5.1
+
+fix:
+- (finish) node v4: includes -> indexOf
+
+feature:
+- (package) add lint:eslint:bin
+- (init) argv, runners -> runners, options
+
+
 2016.07.12, v2.5.0
 
 fix:
