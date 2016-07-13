@@ -77,7 +77,9 @@ const parser = yargs
                 type: 'string',
                 description: 'Command to execute'
             })
-    }, get('init'))
+    }, (argv) => {
+        waterfall([read, apart(command, 'init', argv), write], exitIfError);
+    })
     .command('add', 'Add current directory to runner', (yargs) => {
         return yargs.usage('usage: longrun add [name] [options]')
             .option('l', {
@@ -212,11 +214,6 @@ function options(cmd, argv) {
             names: getNames(argv) || []
         };
     
-    if (cmd === 'name')
-        return assign(result, {
-            name: get
-        });
-    
     if (/^(add|remove)$/.test(cmd))
         return assign(result, {
             cwd: cwd()
@@ -232,6 +229,12 @@ function options(cmd, argv) {
             directories: argv.directories,
             commands: argv.commands,
             all: argv.all,
+        });
+    
+    if (cmd === 'init')
+        return assign(result, {
+            command: argv.command,
+            cwd: cwd()
         });
 }
 

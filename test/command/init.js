@@ -8,9 +8,11 @@ const squad = require('squad');
 const cwd = squad(tildify, process.cwd);
 
 test('longrun: init runner', (t) => {
-    const argv = {
-        _: ['', 'patch'],
-        command: 'wisdom patch'
+    const runners = [];
+    const options = {
+        name: 'patch',
+        command: 'wisdom patch',
+        cwd: cwd()
     };
     
     const expect = [{
@@ -19,7 +21,7 @@ test('longrun: init runner', (t) => {
         directories: [cwd()]
     }];
     
-    init(argv, [], (error, result) => {
+    init(runners, options, (error, result) => {
         t.notOk(error, 'should not be error');
         t.deepEqual(result, expect, 'should init new runner');
         t.end();
@@ -27,31 +29,33 @@ test('longrun: init runner', (t) => {
 });
 
 test('longrun: init runner: no name', (t) => {
-    const argv = {
-        _: [],
+    const runners = [];
+    const options = {
+        name: '',
         command: 'wisdom patch'
     };
     
-    init(argv, [], (error) => {
+    init(runners, options, (error) => {
         t.equal(error.message, 'name could not be empty', 'should throw when no name');
         t.end();
     });
 });
 
 test('longrun: init runner: no command', (t) => {
-    const argv = {
-        _: ['', 'patch']
+    const runners = [];
+    const options = {
+        name: 'patch'
     };
     
-    init(argv, [], (error) => {
-        t.equal(error.message, 'command could not be empty', 'should throw when command empt');
+    init(runners, options, (error) => {
+        t.equal(error.message, 'command could not be empty', 'should throw when command empty');
         t.end();
     });
 });
 
 test('longrun: init runner: name exist', (t) => {
-    const argv = {
-        _: ['', 'patch'],
+    const options = {
+        name: 'patch',
         command: 'wisdom patch'
     };
     
@@ -61,7 +65,7 @@ test('longrun: init runner: name exist', (t) => {
         directories: [cwd()]
     }];
     
-    init(argv, runners, (error) => {
+    init(runners, options, (error) => {
         t.equal(error.message, 'runner with name "patch" already exist', 'should throw when name exist');
         t.end();
     });
