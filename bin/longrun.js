@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+'use strict';
+
 const argv = process.argv.slice(2);
 const exit = process.exit;
 
@@ -7,7 +9,6 @@ if (/^-v|--version$/.test(argv)) {
     version();
     exit();
 }
-const Emitter = require('events').EventEmitter;
 
 const currify = require('currify');
 const waterfall = require('async/waterfall');
@@ -20,25 +21,6 @@ const write = require('../lib/write');
 
 const cwd = squad(tildify, process.cwd);
 
-const pipeline = (argv, options, fn) => {
-    waterfall([
-        (cb) => read(cb),
-        (data, cb) => {
-            fn(argv, data, cb);
-        },
-        (data, cb) => {
-            write(data, cb)
-        }
-    ], exitIfError);
-};
-
-function get(name) {
-    return (argv) => {
-        const command  = require(`../lib/command/${name}`);
-        pipeline(argv, options, command);
-    }
-}
-
 const run = (emitter, cb) => {
     emitter
         .on('data', (data) => {
@@ -50,7 +32,7 @@ const run = (emitter, cb) => {
         .on('exit', () => {
             cb();
         });
-}
+};
 
 const fail = currify((command, msg) => {
     command = command || '';
@@ -76,7 +58,7 @@ const parser = yargs
                 alias: 'command',
                 type: 'string',
                 description: 'Command to execute'
-            })
+            });
     }, (argv) => {
         waterfall([read, apart(command, 'init', argv), write], exitIfError);
     })
@@ -102,7 +84,7 @@ const parser = yargs
     }, (argv) => {
         waterfall([read, apart(command, 'run', argv), run], exitIfError);
     })
-    .command('remove', 'Remove current directory from runner', (argv) => {
+    .command('remove', 'Remove current directory from runner', () => {
         return yargs.strict()
             .usage('usage: longrun remove [name] [options]')
             .option('l', {
@@ -114,7 +96,7 @@ const parser = yargs
     }, (argv) => {
         waterfall([read, apart(command, 'remove', argv), write], exitIfError);
     })
-    .command('clear', 'Clear directories list from runners', (argv) => {
+    .command('clear', 'Clear directories list from runners', () => {
         return yargs.strict()
             .usage('usage: longrun clear [names] [options]')
             .fail(fail('clear'))
@@ -127,7 +109,7 @@ const parser = yargs
                 alias: 'list',
                 type: 'boolean',
                 description: 'show directory list of runner'
-            })
+            });
     }, (argv) => {
         waterfall([read, apart(command, 'clear', argv), write], exitIfError);
     })
@@ -149,7 +131,7 @@ const parser = yargs
                 alias: 'commands',
                 type: 'bool',
                 description: 'Show commands'
-            })
+            });
     }, (argv) => {
         waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
     })
@@ -161,7 +143,7 @@ const parser = yargs
                 alias: 'all',
                 type: 'boolean',
                 description: 'Remove all runners'
-            })
+            });
     }, (argv) => {
         waterfall([read, apart(command, 'finish', argv), write], exitIfError);
     })
