@@ -1,3 +1,10 @@
+2016.07.21, v2.6.0
+
+feature:
+- (longrun) fail: longrun -> longrun command
+- (longrun) add -L, --list-all: show directory lists of all runners
+
+
 2016.07.13, v2.5.1
 
 fix:
