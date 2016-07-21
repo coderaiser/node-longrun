@@ -47,13 +47,28 @@ const run = (emitter, cb) => {
 };
 
 const fail = currify((command, msg) => {
-    command = command || '';
+    if (command === ' ')
+        command = '';
     
-    if (command)
-        command += ' ';
+    let help;
+    let option;
     
-    const cmd = msg.replace('Unknown argument: ', '');
-    console.error(`"${cmd}" is not a longrun option. See "longrun ${command}--help"`);
+    if (command) {
+        help = `longrun ${command} --help`;
+        option = `longrun ${command}`;
+    } else {
+        help = 'longrun --help';
+        option = 'longrun';
+    }
+    
+    let cmd = msg.replace('Unknown argument: ', '');
+    
+    if (cmd.length === 1)
+        cmd = `-${cmd}`;
+    else
+        cmd = `--${cmd}`;
+    
+    console.error(`"${cmd}" is not a "${option}" option. See "${help}"`);
     process.exit(-1);
 });
 
