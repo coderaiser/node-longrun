@@ -68,7 +68,13 @@ const parser = yargs
                 alias: 'list',
                 type: 'boolean',
                 description: 'show directory list of runner'
-            });
+            })
+            .option('L', {
+                alias: 'list-all',
+                type: 'boolean',
+                description: 'show directory lists of all runners'
+            })
+            .fail(fail('add'));
     }, (argv) => {
         waterfall([read, apart(command, 'add', argv), write], exitIfError);
     })
@@ -92,6 +98,11 @@ const parser = yargs
                 type: 'boolean',
                 description: 'show directory list of runner'
             })
+            .option('L', {
+                alias: 'list-all',
+                type: 'boolean',
+                description: 'show directory lists of all runners'
+            })
             .fail(fail('remove'));
     }, (argv) => {
         waterfall([read, apart(command, 'remove', argv), write], exitIfError);
@@ -108,7 +119,12 @@ const parser = yargs
             .option('l', {
                 alias: 'list',
                 type: 'boolean',
-                description: 'show directory list of runner'
+                description: 'show directory lists of all runners'
+            })
+            .option('L', {
+                alias: 'list-all',
+                type: 'boolean',
+                description: 'show all runners'
             });
     }, (argv) => {
         waterfall([read, apart(command, 'clear', argv), write], exitIfError);
@@ -179,8 +195,18 @@ function command(cmd, argv, runners, cb) {
     
     fn(runners, options(cmd, argv), cb);
     
-    if (/^(add|remove|clear)$/.test(cmd) && argv.list)
-      waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
+    if (/^(add|remove|clear)$/.test(cmd)) {
+        if (argv.list)
+            return waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
+         
+        if (argv.listAll) {
+            const argvList = {
+                _: ['list'],
+                directories: true
+            }
+            waterfall([read, apart(command, 'list', argvList), logIfData], exitIfError);
+        }
+    }
 }
 
 function options(cmd, argv) {
