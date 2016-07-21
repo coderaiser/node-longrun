@@ -19,6 +19,18 @@ const tildify = require('tildify');
 const read = require('../lib/read');
 const write = require('../lib/write');
 
+const readable = currify((name, argv) => {
+    waterfall([read, apart(command, name, argv), logIfData], exitIfError);
+});
+
+const writable = currify((name, argv) => {
+    waterfall([read, apart(command, name, argv), write], exitIfError);
+});
+
+const runnable = currify((name, argv) => {
+    waterfall([read, apart(command, name, argv), run], exitIfError);
+});
+
 const cwd = squad(tildify, process.cwd);
 
 const run = (emitter, cb) => {
@@ -59,9 +71,7 @@ const parser = yargs
                 type: 'string',
                 description: 'Command to execute'
             });
-    }, (argv) => {
-        waterfall([read, apart(command, 'init', argv), write], exitIfError);
-    })
+    }, writable('init'))
     .command('add', 'Add current directory to runner', (yargs) => {
         return yargs.usage('usage: longrun add [name] [options]')
             .option('l', {
@@ -75,9 +85,7 @@ const parser = yargs
                 description: 'show directory lists of all runners'
             })
             .fail(fail('add'));
-    }, (argv) => {
-        waterfall([read, apart(command, 'add', argv), write], exitIfError);
-    })
+    }, writable('add'))
     .command('run', 'Run commands from ~/.longrun.json', (yargs) => {
         return yargs.strict()
             .usage('usage: longrun run [name] [options]')
@@ -87,9 +95,7 @@ const parser = yargs
                 description: 'Run all runners'
             })
             .fail(fail('run'));
-    }, (argv) => {
-        waterfall([read, apart(command, 'run', argv), run], exitIfError);
-    })
+    }, runnable('run'))
     .command('remove', 'Remove current directory from runner', () => {
         return yargs.strict()
             .usage('usage: longrun remove [name] [options]')
@@ -104,9 +110,7 @@ const parser = yargs
                 description: 'show directory lists of all runners'
             })
             .fail(fail('remove'));
-    }, (argv) => {
-        waterfall([read, apart(command, 'remove', argv), write], exitIfError);
-    })
+    }, writable('remove'))
     .command('clear', 'Clear directories list from runners', () => {
         return yargs.strict()
             .usage('usage: longrun clear [names] [options]')
@@ -126,9 +130,7 @@ const parser = yargs
                 type: 'boolean',
                 description: 'show all runners'
             });
-    }, (argv) => {
-        waterfall([read, apart(command, 'clear', argv), write], exitIfError);
-    })
+    }, writable('clear'))
     .command('list', 'List all runners', (yargs) => {
         return yargs.strict()
             .usage('usage: longrun list [options]')
@@ -148,9 +150,7 @@ const parser = yargs
                 type: 'bool',
                 description: 'Show commands'
             });
-    }, (argv) => {
-        waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
-    })
+    }, readable('list'))
     .command('finish', 'Remove runner(s)', (yargs) => {
         return yargs.strict()
             .fail(fail('finish'))
@@ -160,9 +160,7 @@ const parser = yargs
                 type: 'boolean',
                 description: 'Remove all runners'
             });
-    }, (argv) => {
-        waterfall([read, apart(command, 'finish', argv), write], exitIfError);
-    })
+    }, writable('finish'))
     .option('v', {
         alias: 'version',
         type: 'boolean',
@@ -197,14 +195,13 @@ function command(cmd, argv, runners, cb) {
     
     if (/^(add|remove|clear)$/.test(cmd)) {
         if (argv.list)
-            return waterfall([read, apart(command, 'list', argv), logIfData], exitIfError);
+            return readable('list', argv);
          
         if (argv.listAll) {
-            const argvList = {
+            readable('list', {
                 _: ['list'],
                 directories: true
-            }
-            waterfall([read, apart(command, 'list', argvList), logIfData], exitIfError);
+            });
         }
     }
 }
