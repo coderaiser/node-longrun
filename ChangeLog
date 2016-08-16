@@ -1,3 +1,10 @@
+2016.08.16, v2.8.0
+
+feature:
+- (run) add -c, --clear: clear all directories after run
+- (package) nyc v8.1.0
+
+
 2016.08.05, v2.7.0
 
 fix:
