@@ -1,3 +1,15 @@
+2016.08.19, v2.8.1
+
+feature:
+- (remove) squad -> Promise
+- (init) squad -> Promise
+- (eslint) add es6
+- (finish) squad -> Promise
+- (clear) squad -> Promise
+- (success) add
+- (add) squad -> promise
+
+
 2016.08.16, v2.8.0
 
 feature:
