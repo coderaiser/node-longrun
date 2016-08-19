@@ -15,7 +15,7 @@
   "scripts": {
     "test": "tape 'test/**/*.js'",
     "watch": "nodemon --watch lib --watch test --exec",
-    "watch:test": "npm run watch -- npm test",
+    "watch:test": "npm run watch -- \"npm test\"",
     "lint:jscs": "jscs --esnext bin lib test",
     "lint:jshint": "jshint bin lib test",
     "lint:eslint": "eslint lib test --ignore-pattern lib/cli.js",
@@ -64,6 +64,7 @@
     "nodemon": "^1.9.2",
     "nyc": "^8.1.0",
     "redrun": "^5.0.1",
+    "sinon": "^1.17.5",
     "tape": "^4.5.1"
   },
   "dependencies": {
