@@ -8,7 +8,7 @@ const squad = require('squad');
 const cwd = squad(tildify, process.cwd);
 const DIR = cwd();
 
-test('longrun: remove directory to runner', (t) => {
+test('longrun: remove directory of runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
