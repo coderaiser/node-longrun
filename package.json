@@ -77,6 +77,6 @@
     "tildify": "^1.2.0",
     "try-catch": "^1.0.0",
     "writejson": "^1.1.1",
-    "yargs": "^4.7.1"
+    "yargs": "^5.0.0"
   }
 }
