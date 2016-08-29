@@ -25,7 +25,7 @@ test('longrun: list names of runners', (t) => {
     
     list(runners, {}, (error, result) => {
         t.notOk(error, 'should not be error');
-        t.equal(expect, result, 'should list names of runner');
+        t.equal(result, expect, 'should list names of runner');
         t.end();
     });
 });
