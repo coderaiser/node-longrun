@@ -1,3 +1,13 @@
+2016.08.29, v2.8.3
+
+fix:
+- (longrun) add node v4 support
+
+feature:
+- (run) squad -> Promise
+- (list) tryCatch -> Promise
+
+
 2016.08.19, v2.8.2
 
 feature:
