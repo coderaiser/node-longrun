@@ -12,7 +12,7 @@ if (/^-v|--version$/.test(argv)) {
 
 const path = require('path');
 
-const {fail} = require('../lib/cli');
+const fail = require('../lib/cli').fail;
 
 const dir = path.join(__dirname, '..');
 
