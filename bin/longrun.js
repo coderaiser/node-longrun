@@ -2,45 +2,21 @@
 
 'use strict';
 
-const argv = process.argv.slice(2);
+const args = process.argv.slice(2);
 const exit = process.exit;
 
-if (/^-v|--version$/.test(argv)) {
+if (/^-v|--version$/.test(args)) {
     version();
     exit();
 }
 
-const path = require('path');
+const parser = require('../lib/parser');
+const argv = parser.argv;
 
-const fail = require('../lib/cli').fail;
-
-const dir = path.join(__dirname, '..');
-
-const yargs = require('yargs');
-const parser = yargs
-    .showHelpOnFail(false)
-    .strict()
-    .usage('usage: longrun [command] [options]')
-    .commandDir(path.join(dir, 'lib/cli'))
-    .pkgConf('', dir)
-    .option('v', {
-        alias: 'version',
-        type: 'boolean',
-        description: 'Show version'
-    })
-    .option('h', {
-        alias: 'help',
-        type: 'boolean',
-    })
-    .help('h')
-    .fail(fail(' '));
-
-const args = parser.argv;
-
-if (args.version)
+if (argv.version)
     version();
-else if (!args._.length)
-    yargs.showHelp();
+else if (!argv._.length)
+    parser.showHelp();
 
 function version() {
     console.log(`v${require('../package').version}`);
