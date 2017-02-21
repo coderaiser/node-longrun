@@ -2,6 +2,9 @@
 
 Run set of commands in group of directories. Based on [runny](https://github.com/coderaiser/node-runny "Runny").
 
+![Logo][LogoURL]
+
+
 ## Install
 
 `npm i longrun -g`
@@ -124,6 +127,10 @@ runner.on('data', (data) => process.stdout.write(data))
 `longrun` developed to work on `node >= 4`.
 Use `longrun-legacy` when doing global install and `require('longrun/legacy')` on older versions of `node`.
 
+## Special Thanks
+
+- [Olena Zalitok](https://zalitok.github.io/ "Olena Zalitok") for **logo**.
+
 ## License
 
 MIT
@@ -139,4 +146,6 @@ MIT
 
 [CoverageURL]:              https://coveralls.io/github/coderaiser/node-longrun?branch=master
 [CoverageIMGURL]:           https://coveralls.io/repos/coderaiser/node-longrun/badge.svg?branch=master&service=github
+
+[LogoURL]:                  https://github.com/coderaiser/longrun/raw/master/longrun.jpg
 
