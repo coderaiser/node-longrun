@@ -5,7 +5,7 @@
   "main": "lib/longrun.js",
   "bin": {
     "longrun": "bin/longrun.js",
-    "longrun-legacy": "legacy/bin/longrun.js"
+    "longrun_": "legacy/bin/longrun.js"
   },
   "babel": {
     "presets": [
