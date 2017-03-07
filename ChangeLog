@@ -1,3 +1,12 @@
+2017.03.07, v3.0.0
+
+feature:
+- (package) longrun-legacy -> longrun_
+- (package) yargs v7.0.1
+- (longrun) add logo
+- (package) nyc v10.0.0
+
+
 2016.11.23, v2.8.6
 
 feature:

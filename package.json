@@ -1,6 +1,6 @@
 {
   "name": "longrun",
-  "version": "2.8.6",
+  "version": "3.0.0",
   "description": "Run set of commands in group of directories",
   "main": "lib/longrun.js",
   "bin": {
