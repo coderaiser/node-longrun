@@ -4,8 +4,7 @@
   "description": "Run set of commands in group of directories",
   "main": "lib/longrun.js",
   "bin": {
-    "longrun": "bin/longrun.js",
-    "longrun_": "legacy/bin/longrun.js"
+    "longrun": "bin/longrun.js"
   },
   "babel": {
     "presets": [
@@ -24,14 +23,7 @@
     "jscs-fix": "npm run jscs --fix",
     "coverage": "nyc npm test",
     "watch:coverage": "redrun watch -- redrun coverage",
-    "report": "nyc report --reporter=text-lcov | coveralls",
-    "wisdom": "npm run build",
-    "wisdom:done": "npm i -g",
-    "6to5:lib": "babel lib -d legacy/lib",
-    "6to5:bin": "babel bin -d legacy/bin",
-    "build": "redrun 6to5:* legacy:*",
-    "legacy:index": "echo \"module.exports = require('./lib/longrun');\" > legacy/index.js",
-    "legacy:package": "echo \"module.exports = require('../package');\" > legacy/package.js"
+    "report": "nyc report --reporter=text-lcov | coveralls"
   },
   "repository": {
     "type": "git",

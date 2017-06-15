@@ -122,11 +122,6 @@ runner.on('data', (data) => process.stdout.write(data))
     .on('exit', () => console.log('exit'));
 ```
 
-## Environments
-
-`longrun` developed to work on `node >= 4`.
-Use `longrun_` when doing global install and `require('longrun/legacy')` on older versions of `node`.
-
 ## Special Thanks
 
 - [Olena Zalitok](https://zalitok.github.io/ "Olena Zalitok") for **logo**.
