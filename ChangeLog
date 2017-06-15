@@ -1,3 +1,13 @@
+2017.06.15, v4.0.0
+
+feature:
+- (longrun) drop support of node <= 4
+- (package) yargs v8.0.2
+- (package) nyc v11.0.2
+- (package) eslint v4.0.0
+- (package) sinon v2.0.0
+
+
 2017.03.07, v3.0.0
 
 feature:
