@@ -6,11 +6,6 @@
   "bin": {
     "longrun": "bin/longrun.js"
   },
-  "babel": {
-    "presets": [
-      "es2015"
-    ]
-  },
   "scripts": {
     "test": "tape 'test/**/*.js'",
     "watch": "nodemon --watch lib --watch test --exec",
@@ -47,8 +42,6 @@
     "node": ">=4"
   },
   "devDependencies": {
-    "babel-cli": "^6.10.1",
-    "babel-preset-es2015": "^6.9.0",
     "coveralls": "^2.11.6",
     "eslint": "^4.0.0",
     "jscs": "^3.0.1",
