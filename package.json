@@ -57,7 +57,7 @@
     "async": "^2.0.0-rc.4",
     "currify": "^2.0.0",
     "readjson": "^1.1.3",
-    "runny": "^1.4.0",
+    "runny": "^2.0.0",
     "squad": "^1.1.3",
     "tildify": "^1.2.0",
     "writejson": "^1.1.1",
