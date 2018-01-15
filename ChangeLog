@@ -1,3 +1,9 @@
+2018.01.15, v4.0.4
+
+fix:
+- (longrun) commands: longrun.js -> longrun
+
+
 2018.01.15, v4.0.3
 
 feature:
