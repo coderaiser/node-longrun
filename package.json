@@ -4,7 +4,7 @@
   "description": "Run set of commands in group of directories",
   "main": "lib/longrun.js",
   "bin": {
-    "longrun": "bin/longrun"
+    "longrun": "bin/longrun.js"
   },
   "scripts": {
     "test": "tape 'test/**/*.js'",
