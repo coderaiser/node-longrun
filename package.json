@@ -61,7 +61,7 @@
     "runny": "^2.0.0",
     "squad": "^2.0.0",
     "tildify": "^1.2.0",
-    "writejson": "^1.1.1",
+    "writejson": "^2.0.0",
     "yargs": "^11.0.0"
   }
 }
