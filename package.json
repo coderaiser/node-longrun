@@ -43,7 +43,7 @@
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
-    "eslint": "^4.0.0",
+    "eslint": "^5.0.0",
     "jscs": "^3.0.1",
     "jshint": "^2.8.0",
     "nodemon": "^1.9.2",
