@@ -10,8 +10,6 @@
     "test": "tape 'test/**/*.js'",
     "watch": "nodemon --watch lib --watch test --exec",
     "watch:test": "npm run watch -- \"npm test\"",
-    "lint:jscs": "jscs --esnext bin lib test",
-    "lint:jshint": "jshint bin lib test",
     "lint:eslint": "eslint lib test --ignore-pattern lib/cli.js",
     "lint:eslint:bin": "eslint bin lib/cli.js --config .eslint-bin.rc",
     "lint": "redrun lint:*",
@@ -44,8 +42,6 @@
   "devDependencies": {
     "coveralls": "^3.0.0",
     "eslint": "^5.0.0",
-    "jscs": "^3.0.1",
-    "jshint": "^2.8.0",
     "nodemon": "^1.9.2",
     "nyc": "^12.0.2",
     "redrun": "^6.0.0",
