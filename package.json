@@ -37,7 +37,7 @@
   },
   "homepage": "https://github.com/coderaiser/node-longrun",
   "engines": {
-    "node": ">=4"
+    "node": ">=8"
   },
   "devDependencies": {
     "coveralls": "^3.0.0",
