@@ -49,7 +49,7 @@
     "tape": "^4.5.1"
   },
   "dependencies": {
-    "apart": "^1.0.1",
+    "apart": "^2.0.0",
     "async": "^2.0.0",
     "currify": "^2.0.0",
     "itchy": "^1.0.0",
