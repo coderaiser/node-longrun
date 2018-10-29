@@ -45,7 +45,7 @@
     "nodemon": "^1.9.2",
     "nyc": "^13.0.1",
     "redrun": "^7.0.0",
-    "sinon": "^6.0.0",
+    "sinon": "^7.1.0",
     "tape": "^4.5.1"
   },
   "dependencies": {
