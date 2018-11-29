@@ -2,10 +2,10 @@
 
 const test = require('tape');
 const success = require('../lib/success');
-const sinon = require('sinon');
+const stub = require('@cloudcmd/stub');
 
 test('longrun: success: should set first argument null', (t) => {
-    const fn = sinon.stub();
+    const fn = stub();
     
     success(fn, 'hello');
     t.ok(fn.calledWith(null, 'hello'));
@@ -13,7 +13,7 @@ test('longrun: success: should set first argument null', (t) => {
 });
 
 test('longrun: success should use curry', (t) => {
-    const fn = sinon.stub();
+    const fn = stub();
     
     t.equal(typeof success(fn), 'function', 'should return function');
     t.end();
