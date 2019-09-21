@@ -51,7 +51,7 @@
   "dependencies": {
     "apart": "^2.0.0",
     "async": "^2.0.0",
-    "currify": "^3.0.0",
+    "currify": "^4.0.0",
     "itchy": "^1.0.0",
     "readjson": "^1.1.3",
     "runny": "^3.0.0",
