@@ -1,15 +1,15 @@
 'use strict';
 
 const command = require('../lib/command');
-const test = require('tape');
+const test = require('supertape');
 
 test('longrun: command', (t) => {
     const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const result = command('master', 'wisdom patch', runner);
@@ -26,8 +26,8 @@ test('longrun: command: can not find', (t) => {
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const fn = () => command('patch', 'wisdom patch', runner);

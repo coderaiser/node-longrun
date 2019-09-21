@@ -1,17 +1,17 @@
 'use strict';
 
 const run = require('../../lib/command/run');
-const test = require('tape');
+const test = require('supertape');
 
 test('longrun: run', (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
-        directories: ['~']
-   }];
-   
+        directories: ['~'],
+    }];
+    
     const runItem = {
-        name: 'patch'
+        name: 'patch',
     };
     
     run(runners, runItem, (error) => {
@@ -24,16 +24,16 @@ test('longrun: run: --all', (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
-        directories: ['~']
+        directories: ['~'],
     }, {
         name: 'master',
         command: 'echo master',
-        directories: ['~']
+        directories: ['~'],
     }];
     
     const runItem = {
         name: '',
-        all: true
+        all: true,
     };
     
     run(runners, runItem, (error) => {
@@ -44,7 +44,7 @@ test('longrun: run: --all', (t) => {
 
 test('longrun: run: error: empty name', (t) => {
     const runItem = {
-        name: ''
+        name: '',
     };
     
     run([], runItem, (error) => {
@@ -53,16 +53,15 @@ test('longrun: run: error: empty name', (t) => {
     });
 });
 
-
 test('longrun: run: error', (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
-        directories: ['~']
+        directories: ['~'],
     }];
     
     const runItem = {
-        name: 'no name'
+        name: 'no name',
     };
     
     run(runners, runItem, (error) => {

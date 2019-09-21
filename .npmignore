@@ -3,7 +3,10 @@ test
 redrun.png
 redrun.ai
 coverage
+madrun
+yarn-error.log
 
 longrun.jpg
 longrun-vector.jpg
-longrun.ai
+longrun.aimadrun.js
+

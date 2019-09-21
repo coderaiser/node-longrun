@@ -3,7 +3,7 @@
 'use strict';
 
 const args = process.argv.slice(2);
-const exit = process.exit;
+const {exit} = process;
 
 if (/^-v|--version$/.test(args)) {
     version();
@@ -11,7 +11,7 @@ if (/^-v|--version$/.test(args)) {
 }
 
 const parser = require('../lib/parser');
-const argv = parser.argv;
+const {argv} = parser;
 
 if (argv.version)
     version();

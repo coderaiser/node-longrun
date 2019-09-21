@@ -1,23 +1,23 @@
 'use strict';
 
 const clear = require('../../lib/command/clear');
-const test = require('tape');
+const test = require('supertape');
 
 test('longrun: clear directory to runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }];
     
     const expect = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: []
+        directories: [],
     }];
     
     const runItem = {
-        names: ['patch']
+        names: ['patch'],
     };
     
     clear(runners, runItem, (error, result) => {
@@ -36,7 +36,7 @@ test('longrun: clear directory of runner: no name', (t) => {
 
 test('longrun: clear directory of runner: name doesn\'t exist', (t) => {
     const item = {
-        names: ['master']
+        names: ['master'],
     };
     clear([], item, (error) => {
         t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
@@ -46,7 +46,7 @@ test('longrun: clear directory of runner: name doesn\'t exist', (t) => {
 
 test('longrun: clear directory of runner: name is empty', (t) => {
     const item = {
-        names: []
+        names: [],
     };
     clear([], item, (error) => {
         t.equal(error.message, 'name could not be empty', 'should throw when name is empty');
@@ -58,26 +58,26 @@ test('longrun: clear directories from all runners', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }, {
         name: 'minor',
         command: 'wisdom monor',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }];
     
     const expect = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: []
+        directories: [],
     }, {
         name: 'minor',
         command: 'wisdom monor',
-        directories: []
+        directories: [],
     }];
     
     const options = {
         all: true,
-        names: []
+        names: [],
     };
     
     clear(runners, options, (error, result) => {

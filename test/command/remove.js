@@ -1,7 +1,7 @@
 'use strict';
 
 const remove = require('../../lib/command/remove');
-const test = require('tape');
+const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
 
@@ -12,18 +12,18 @@ test('longrun: remove directory of runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', DIR]
+        directories: ['~', DIR],
     }];
     
     const expect = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~']
+        directories: ['~'],
     }];
     
     const runItem = {
         name: 'patch',
-        cwd: DIR
+        cwd: DIR,
     };
     
     remove(runners, runItem, (error, result) => {
@@ -42,7 +42,7 @@ test('longrun: remove directory of runner: no name', (t) => {
 
 test('longrun: remove directory of runner: name doesn\'t exist', (t) => {
     const item = {
-        name: 'master'
+        name: 'master',
     };
     remove([], item, (error) => {
         t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');

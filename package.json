@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/coderaiser/node-longrun",
   "engines": {
-    "node": ">=8"
+    "node": ">=10"
   },
   "devDependencies": {
     "@cloudcmd/stub": "^2.3.1",

@@ -1,7 +1,7 @@
 'use strict';
 
 const add = require('../../lib/command/add');
-const test = require('tape');
+const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
 
@@ -12,18 +12,18 @@ test('longrun: add directory to runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~']
+        directories: ['~'],
     }];
     
     const expect = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', DIR]
+        directories: ['~', DIR],
     }];
     
     const runItem = {
         name: 'patch',
-        cwd: DIR
+        cwd: DIR,
     };
     
     add(runners, runItem, (error, result) => {
@@ -37,12 +37,12 @@ test('longrun: add directory to runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', DIR]
+        directories: ['~', DIR],
     }];
     
     const runItem = {
         name: 'patch',
-        cwd: DIR
+        cwd: DIR,
     };
     
     add(runners, runItem, (error) => {

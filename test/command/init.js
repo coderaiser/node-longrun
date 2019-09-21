@@ -1,7 +1,7 @@
 'use strict';
 
 const init = require('../../lib/command/init');
-const test = require('tape');
+const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
 
@@ -12,13 +12,13 @@ test('longrun: init runner', (t) => {
     const options = {
         name: 'patch',
         command: 'wisdom patch',
-        cwd: cwd()
+        cwd: cwd(),
     };
     
     const expect = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: [cwd()]
+        directories: [cwd()],
     }];
     
     init(runners, options, (error, result) => {
@@ -32,7 +32,7 @@ test('longrun: init runner: no name', (t) => {
     const runners = [];
     const options = {
         name: '',
-        command: 'wisdom patch'
+        command: 'wisdom patch',
     };
     
     init(runners, options, (error) => {
@@ -44,7 +44,7 @@ test('longrun: init runner: no name', (t) => {
 test('longrun: init runner: no command', (t) => {
     const runners = [];
     const options = {
-        name: 'patch'
+        name: 'patch',
     };
     
     init(runners, options, (error) => {
@@ -56,13 +56,13 @@ test('longrun: init runner: no command', (t) => {
 test('longrun: init runner: name exist', (t) => {
     const options = {
         name: 'patch',
-        command: 'wisdom patch'
+        command: 'wisdom patch',
     };
     
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: [cwd()]
+        directories: [cwd()],
     }];
     
     init(runners, options, (error) => {

@@ -1,15 +1,15 @@
 'use strict';
 
 const directory = require('../lib/directory');
-const test = require('tape');
+const test = require('supertape');
 
 test('longrun: directory: add', (t) => {
     const runner = [{
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const result = directory.add('master', '~', runner);
@@ -26,8 +26,8 @@ test('longrun: directory: add: name absent', (t) => {
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const fn = () => directory.add('patch', '~/longrun', runners);
@@ -41,8 +41,8 @@ test('longrun: directory: remove', (t) => {
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const result = directory.remove('master', '~/longrun', runner);
@@ -59,8 +59,8 @@ test('longrun: directory: remove: directory absent', (t) => {
         name: 'master',
         command: 'git push origin master',
         directories: [
-            '~/longrun'
-        ]
+            '~/longrun',
+        ],
     }];
     
     const fn = () => directory.remove('master', '~/cloudcmd', runners);

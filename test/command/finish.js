@@ -1,19 +1,19 @@
 'use strict';
 
 const finish = require('../../lib/command/finish');
-const test = require('tape');
+const test = require('supertape');
 
 test('longrun: finish runner', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }];
     
     const expect = [];
     
     const runItem = {
-        names: ['patch']
+        names: ['patch'],
     };
     
     finish(runners, runItem, (error, result) => {
@@ -32,7 +32,7 @@ test('longrun: finish runner: no name', (t) => {
 
 test('longrun: finish runner: name doesn\'t exist', (t) => {
     const item = {
-        names: ['master']
+        names: ['master'],
     };
     finish([], item, (error) => {
         t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
@@ -42,7 +42,7 @@ test('longrun: finish runner: name doesn\'t exist', (t) => {
 
 test('longrun: finish runner: name is empty', (t) => {
     const item = {
-        names: []
+        names: [],
     };
     finish([], item, (error) => {
         t.equal(error.message, 'name could not be empty', 'should throw when name is empty');
@@ -54,18 +54,18 @@ test('longrun: finish all runners', (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }, {
         name: 'minor',
         command: 'wisdom monor',
-        directories: ['~', '/tmp']
+        directories: ['~', '/tmp'],
     }];
     
     const expect = [];
     
     const options = {
         all: true,
-        names: []
+        names: [],
     };
     
     finish(runners, options, (error, result) => {

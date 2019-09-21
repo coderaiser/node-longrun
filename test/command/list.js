@@ -1,22 +1,22 @@
 'use strict';
 
 const list = require('../../lib/command/list');
-const test = require('tape');
+const test = require('supertape');
 
 const runners = [{
     name: 'patch',
     command: 'wisdom patch',
-    directories: ['~']
+    directories: ['~'],
 }, {
     name: 'minor',
     command: 'wisdom minor',
-    directories: ['~']
+    directories: ['~'],
 }];
 
 test('longrun: list names of runners', (t) => {
     const names = [
         'patch',
-        'minor'
+        'minor',
     ];
     
     const expect = names
@@ -35,8 +35,8 @@ test('longrun: list directories of runners', (t) => {
         '* patch',
         '|  ~',
         '* minor',
-        '|  ~'
-        ].join('\n') + '\n';
+        '|  ~',
+    ].join('\n') + '\n';
     
     list(runners, {directories: true}, (error, result) => {
         t.equal(expect, result, 'should list directories of runners');
@@ -49,8 +49,8 @@ test('longrun: list commands of runners', (t) => {
         '* patch',
         '> wisdom patch',
         '* minor',
-        '> wisdom minor'
-        ].join('\n') + '\n';
+        '> wisdom minor',
+    ].join('\n') + '\n';
     
     list(runners, {commands: true}, (error, result) => {
         t.equal(expect, result, 'should list commands of runners');
@@ -65,8 +65,8 @@ test('longrun: list all runners', (t) => {
         '|  ~',
         '* minor',
         '> wisdom minor',
-        '|  ~'
-        ].join('\n') + '\n';
+        '|  ~',
+    ].join('\n') + '\n';
     
     list(runners, {all: true}, (error, result) => {
         t.equal(expect, result, 'should list all runners');
@@ -79,7 +79,7 @@ test('longrun: list runner', (t) => {
         '* minor',
         '> wisdom minor',
         '|  ~',
-        ].join('\n') + '\n';
+    ].join('\n') + '\n';
     
     list(runners, {name: 'minor'}, (error, result) => {
         t.equal(result, expect, 'should list runner');
@@ -91,7 +91,7 @@ test('longrun: list directory of runner', (t) => {
     const expect = [
         '* patch',
         '|  ~',
-        ].join('\n') + '\n';
+    ].join('\n') + '\n';
     
     list(runners, {name: 'patch', directories: true}, (error, result) => {
         t.equal(expect, result, 'should list runner');
@@ -103,7 +103,7 @@ test('longrun: list command of runner', (t) => {
     const expect = [
         '* patch',
         '> wisdom patch',
-        ].join('\n') + '\n';
+    ].join('\n') + '\n';
     
     list(runners, {name: 'patch', commands: true}, (error, result) => {
         t.equal(expect, result, 'should list command of runner');
