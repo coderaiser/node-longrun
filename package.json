@@ -7,16 +7,17 @@
     "longrun": "bin/longrun.js"
   },
   "scripts": {
-    "test": "tape 'test/**/*.js'",
-    "watch": "nodemon --watch lib --watch test --exec",
-    "watch:test": "npm run watch -- \"npm test\"",
-    "lint:eslint": "eslint lib test --ignore-pattern lib/cli.js",
-    "lint:eslint:bin": "eslint bin lib/cli.js --config .eslint-bin.rc",
-    "lint": "redrun lint:*",
-    "jscs-fix": "npm run jscs --fix",
-    "coverage": "nyc npm test",
-    "watch:coverage": "redrun watch -- redrun coverage",
-    "report": "nyc report --reporter=text-lcov | coveralls"
+    "test": "madrun test",
+    "watch": "madrun watch",
+    "watch:test": "madrun watch:test",
+    "lint:eslint": "madrun lint:eslint",
+    "lint:eslint:bin": "madrun lint:eslint:bin",
+    "lint": "madrun lint",
+    "fix:lint": "madrun fix:lint",
+    "jscs-fix": "madrun jscs-fix",
+    "coverage": "madrun coverage",
+    "watch:coverage": "madrun watch:coverage",
+    "report": "madrun report"
   },
   "repository": {
     "type": "git",
@@ -43,14 +44,17 @@
     "@cloudcmd/stub": "^2.3.1",
     "coveralls": "^3.0.0",
     "eslint": "^6.4.0",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-putout": "^2.0.0",
+    "madrun": "^3.0.5",
     "nodemon": "^1.9.2",
     "nyc": "^14.1.1",
-    "redrun": "^7.0.0",
-    "tape": "^4.5.1"
+    "putout": "^6.1.0",
+    "supertape": "^1.2.3"
   },
   "dependencies": {
     "apart": "^2.0.0",
-    "async": "^2.0.0",
+    "async": "^3.1.0",
     "currify": "^4.0.0",
     "itchy": "^1.0.0",
     "readjson": "^1.1.3",
