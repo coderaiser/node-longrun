@@ -36,7 +36,7 @@ test('longrun: command: can not find', (t) => {
 });
 
 test('longrun: command: arguments: no name', (t) => {
-    const fn = () => command();
+    const fn = command;
     
     t.throws(fn, /name should be string!/, 'should throw when no name');
     t.end();

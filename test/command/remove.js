@@ -1,14 +1,18 @@
 'use strict';
 
-const remove = require('../../lib/command/remove');
+const {promisify} = require('util');
+
 const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
+const tryToCatch = require('try-to-catch');
+
+const remove = promisify(require('../../lib/command/remove'));
 
 const cwd = squad(tildify, process.cwd);
 const DIR = cwd();
 
-test('longrun: remove directory of runner', (t) => {
+test('longrun: remove directory of runner', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
@@ -26,27 +30,27 @@ test('longrun: remove directory of runner', (t) => {
         cwd: DIR,
     };
     
-    remove(runners, runItem, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.deepEqual(result, expect, 'should remove directory from runner');
-        t.end();
-    });
+    const result = await remove(runners, runItem);
+    
+    t.deepEqual(result, expect, 'should remove directory from runner');
+    t.end();
 });
 
-test('longrun: remove directory of runner: no name', (t) => {
-    remove([], {}, (error) => {
-        t.equal(error.message, 'name could not be empty', 'should throw when no name');
-        t.end();
-    });
+test('longrun: remove directory of runner: no name', async (t) => {
+    const [error] = await tryToCatch(remove, [], {});
+    
+    t.equal(error.message, 'name could not be empty', 'should throw when no name');
+    t.end();
 });
 
-test('longrun: remove directory of runner: name doesn\'t exist', (t) => {
+test('longrun: remove directory of runner: name doesn\'t exist', async (t) => {
     const item = {
         name: 'master',
     };
-    remove([], item, (error) => {
-        t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
-        t.end();
-    });
+    
+    const [error] = await tryToCatch(remove, [], item);
+    
+    t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
+    t.end();
 });
 

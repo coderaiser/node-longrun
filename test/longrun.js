@@ -1,5 +1,7 @@
 'use strict';
 
+const {once} = require('events');
+
 const longrun = require('..');
 
 const Emitter = require('events').EventEmitter;
@@ -18,40 +20,32 @@ test('longrun: result: emitter', (t) => {
     t.end();
 });
 
-test('longrun: events: exit when empty array', (t) => {
+test('longrun: events: exit when empty array', async (t) => {
     const emitter = longrun([]);
-    
-    emitter.on('exit', () => {
-        t.pass('longrun should emit "exit" event');
-        t.end();
-    });
+    await once(emitter, 'exit');
+    t.pass('longrun should emit "exit" event');
+    t.end();
 });
 
-test('longrun: events: exit when there is command to run', (t) => {
+test('longrun: events: exit when there is command to run', async (t) => {
     const emitter = longrun([{
         command: 'whoami',
-        directories: [
-            __dirname,
-        ],
+        directories: [__dirname],
     }]);
     
-    emitter.on('exit', () => {
-        t.pass('longrun should emit "exit" event');
-        t.end();
-    });
+    await once(emitter, 'exit');
+    t.pass('longrun should emit "exit" event');
+    t.end();
 });
 
-test('longrun: events: error', (t) => {
+test('longrun: events: error', async (t) => {
     const emitter = longrun([{
         command: 'asdfsdfsdfsdf',
-        directories: [
-            __dirname,
-        ],
+        directories: [__dirname],
     }]);
     
-    emitter.on('error', () => {
-        t.pass('longrun should emit "error" event');
-        t.end();
-    });
+    await once(emitter, 'error');
+    t.pass('longrun should emit "error" event');
+    t.end();
 });
 
