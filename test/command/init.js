@@ -1,13 +1,17 @@
 'use strict';
 
-const init = require('../../lib/command/init');
+const {promisify} = require('util');
+
 const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
+const tryToCatch = require('try-to-catch');
+
+const init = promisify(require('../../lib/command/init'));
 
 const cwd = squad(tildify, process.cwd);
 
-test('longrun: init runner', (t) => {
+test('longrun: init runner', async (t) => {
     const runners = [];
     const options = {
         name: 'patch',
@@ -21,39 +25,38 @@ test('longrun: init runner', (t) => {
         directories: [cwd()],
     }];
     
-    init(runners, options, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.deepEqual(result, expect, 'should init new runner');
-        t.end();
-    });
+    const result = await init(runners, options);
+    
+    t.deepEqual(result, expect, 'should init new runner');
+    t.end();
 });
 
-test('longrun: init runner: no name', (t) => {
+test('longrun: init runner: no name', async (t) => {
     const runners = [];
     const options = {
         name: '',
         command: 'wisdom patch',
     };
     
-    init(runners, options, (error) => {
-        t.equal(error.message, 'name could not be empty', 'should throw when no name');
-        t.end();
-    });
+    const [error] = await tryToCatch(init, runners, options);
+    
+    t.equal(error.message, 'name could not be empty', 'should throw when no name');
+    t.end();
 });
 
-test('longrun: init runner: no command', (t) => {
+test('longrun: init runner: no command', async (t) => {
     const runners = [];
     const options = {
         name: 'patch',
     };
     
-    init(runners, options, (error) => {
-        t.equal(error.message, 'command could not be empty', 'should throw when command empty');
-        t.end();
-    });
+    const [error] = await tryToCatch(init, runners, options);
+    
+    t.equal(error.message, 'command could not be empty', 'should throw when command empty');
+    t.end();
 });
 
-test('longrun: init runner: name exist', (t) => {
+test('longrun: init runner: name exist', async (t) => {
     const options = {
         name: 'patch',
         command: 'wisdom patch',
@@ -65,8 +68,9 @@ test('longrun: init runner: name exist', (t) => {
         directories: [cwd()],
     }];
     
-    init(runners, options, (error) => {
-        t.equal(error.message, 'runner with name "patch" already exist', 'should throw when name exist');
-        t.end();
-    });
+    const [error] = await tryToCatch(init, runners, options);
+    
+    t.equal(error.message, 'runner with name "patch" already exist', 'should throw when name exist');
+    t.end();
 });
+

@@ -1,14 +1,18 @@
 'use strict';
 
-const add = require('../../lib/command/add');
+const {promisify} = require('util');
+
 const test = require('supertape');
 const tildify = require('tildify');
 const squad = require('squad');
+const tryToCatch = require('try-to-catch');
+
+const add = promisify(require('../../lib/command/add'));
 
 const cwd = squad(tildify, process.cwd);
 const DIR = cwd();
 
-test('longrun: add directory to runner', (t) => {
+test('longrun: add directory to runner', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
@@ -26,14 +30,13 @@ test('longrun: add directory to runner', (t) => {
         cwd: DIR,
     };
     
-    add(runners, runItem, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.deepEqual(result, expect, 'should add directory to runner');
-        t.end();
-    });
+    const result = await add(runners, runItem);
+    
+    t.deepEqual(result, expect, 'should add directory to runner');
+    t.end();
 });
 
-test('longrun: add directory to runner', (t) => {
+test('longrun: add directory to runner', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
@@ -45,16 +48,16 @@ test('longrun: add directory to runner', (t) => {
         cwd: DIR,
     };
     
-    add(runners, runItem, (error) => {
-        t.equal(error && error.message, 'current directory already in runner "patch"', 'should return error');
-        t.end();
-    });
+    const [error] = await tryToCatch(add, runners, runItem);
+    
+    t.equal(error && error.message, 'current directory already in runner "patch"', 'should return error');
+    t.end();
 });
 
-test('longrun: add directory to runner: no name', (t) => {
-    add([], {}, (error) => {
-        t.equal(error.message, 'name could not be empty', 'should throw when no name');
-        t.end();
-    });
+test('longrun: add directory to runner: no name', async (t) => {
+    const [error] = await tryToCatch(add, [], {});
+    
+    t.equal(error.message, 'name could not be empty', 'should throw when no name');
+    t.end();
 });
 

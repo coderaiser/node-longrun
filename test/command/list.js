@@ -1,7 +1,10 @@
 'use strict';
 
-const list = require('../../lib/command/list');
+const {promisify} = require('util');
+
 const test = require('supertape');
+
+const list = promisify(require('../../lib/command/list'));
 
 const runners = [{
     name: 'patch',
@@ -13,7 +16,7 @@ const runners = [{
     directories: ['~'],
 }];
 
-test('longrun: list names of runners', (t) => {
+test('longrun: list names of runners', async (t) => {
     const names = [
         'patch',
         'minor',
@@ -23,14 +26,13 @@ test('longrun: list names of runners', (t) => {
         .map((name) => `${name}\n`)
         .join('');
     
-    list(runners, {}, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.equal(result, expect, 'should list names of runner');
-        t.end();
-    });
+    const result = await list(runners, {});
+    
+    t.equal(result, expect, 'should list names of runner');
+    t.end();
 });
 
-test('longrun: list directories of runners', (t) => {
+test('longrun: list directories of runners', async (t) => {
     const expect = [
         '* patch',
         '|  ~',
@@ -38,13 +40,13 @@ test('longrun: list directories of runners', (t) => {
         '|  ~',
     ].join('\n') + '\n';
     
-    list(runners, {directories: true}, (error, result) => {
-        t.equal(expect, result, 'should list directories of runners');
-        t.end();
-    });
+    const result = await list(runners, {directories: true});
+    
+    t.equal(expect, result, 'should list directories of runners');
+    t.end();
 });
 
-test('longrun: list commands of runners', (t) => {
+test('longrun: list commands of runners', async (t) => {
     const expect = [
         '* patch',
         '> wisdom patch',
@@ -52,13 +54,15 @@ test('longrun: list commands of runners', (t) => {
         '> wisdom minor',
     ].join('\n') + '\n';
     
-    list(runners, {commands: true}, (error, result) => {
-        t.equal(expect, result, 'should list commands of runners');
-        t.end();
+    const result = await list(runners, {
+        commands: true,
     });
+    
+    t.equal(expect, result, 'should list commands of runners');
+    t.end();
 });
 
-test('longrun: list all runners', (t) => {
+test('longrun: list all runners', async (t) => {
     const expect = [
         '* patch',
         '> wisdom patch',
@@ -68,45 +72,53 @@ test('longrun: list all runners', (t) => {
         '|  ~',
     ].join('\n') + '\n';
     
-    list(runners, {all: true}, (error, result) => {
-        t.equal(expect, result, 'should list all runners');
-        t.end();
+    const result = await list(runners, {
+        all: true,
     });
+    
+    t.equal(expect, result, 'should list all runners');
+    t.end();
 });
 
-test('longrun: list runner', (t) => {
+test('longrun: list runner', async (t) => {
     const expect = [
         '* minor',
         '> wisdom minor',
         '|  ~',
     ].join('\n') + '\n';
     
-    list(runners, {name: 'minor'}, (error, result) => {
-        t.equal(result, expect, 'should list runner');
-        t.end();
+    const result = await list(runners, {
+        name: 'minor',
     });
+    
+    t.equal(result, expect, 'should list runner');
+    t.end();
 });
 
-test('longrun: list directory of runner', (t) => {
+test('longrun: list directory of runner', async (t) => {
     const expect = [
         '* patch',
         '|  ~',
     ].join('\n') + '\n';
     
-    list(runners, {name: 'patch', directories: true}, (error, result) => {
-        t.equal(expect, result, 'should list runner');
-        t.end();
+    const result = await list(runners, {
+        name: 'patch',
+        directories: true,
     });
+    
+    t.equal(expect, result, 'should list runner');
+    t.end();
 });
 
-test('longrun: list command of runner', (t) => {
+test('longrun: list command of runner', async (t) => {
     const expect = [
         '* patch',
         '> wisdom patch',
     ].join('\n') + '\n';
     
-    list(runners, {name: 'patch', commands: true}, (error, result) => {
-        t.equal(expect, result, 'should list command of runner');
-        t.end();
-    });
+    const result = await list(runners, {name: 'patch', commands: true});
+    
+    t.equal(expect, result, 'should list command of runner');
+    t.end();
 });
+

@@ -1,9 +1,13 @@
 'use strict';
 
-const finish = require('../../lib/command/finish');
-const test = require('supertape');
+const {promisify} = require('util');
 
-test('longrun: finish runner', (t) => {
+const test = require('supertape');
+const tryToCatch = require('try-to-catch');
+
+const finish = promisify(require('../../lib/command/finish'));
+
+test('longrun: finish runner', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
@@ -16,41 +20,42 @@ test('longrun: finish runner', (t) => {
         names: ['patch'],
     };
     
-    finish(runners, runItem, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.deepEqual(result, expect, 'should finish directories from runner');
-        t.end();
-    });
+    const result = await finish(runners, runItem);
+    
+    t.deepEqual(result, expect, 'should finish directories from runner');
+    t.end();
 });
 
-test('longrun: finish runner: no name', (t) => {
-    finish([], {names: []}, (error) => {
-        t.equal(error.message, 'name could not be empty', 'should throw when no name');
-        t.end();
+test('longrun: finish runner: no name', async (t) => {
+    const [error] = await tryToCatch(finish, [], {
+        names: [],
     });
+    
+    t.equal(error.message, 'name could not be empty', 'should throw when no name');
+    t.end();
 });
 
-test('longrun: finish runner: name doesn\'t exist', (t) => {
+test('longrun: finish runner: name doesn\'t exist', async (t) => {
     const item = {
         names: ['master'],
     };
-    finish([], item, (error) => {
-        t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
-        t.end();
-    });
+    const [error] = await tryToCatch(finish, [], item);
+    
+    t.equal(error.message, 'runner with name "master" doesn\'t exist', 'should throw when name not found');
+    t.end();
 });
 
-test('longrun: finish runner: name is empty', (t) => {
+test('longrun: finish runner: name is empty', async (t) => {
     const item = {
         names: [],
     };
-    finish([], item, (error) => {
-        t.equal(error.message, 'name could not be empty', 'should throw when name is empty');
-        t.end();
-    });
+    const [error] = await tryToCatch(finish, [], item);
+    
+    t.equal(error.message, 'name could not be empty', 'should throw when name is empty');
+    t.end();
 });
 
-test('longrun: finish all runners', (t) => {
+test('longrun: finish all runners', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'wisdom patch',
@@ -68,9 +73,9 @@ test('longrun: finish all runners', (t) => {
         names: [],
     };
     
-    finish(runners, options, (error, result) => {
-        t.notOk(error, 'should not be error');
-        t.deepEqual(result, expect, 'result should be with no runners');
-        t.end();
-    });
+    const result = await finish(runners, options);
+    
+    t.deepEqual(result, expect, 'result should be with no runners');
+    t.end();
 });
+

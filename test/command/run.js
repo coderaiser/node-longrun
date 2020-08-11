@@ -1,9 +1,13 @@
 'use strict';
 
-const run = require('../../lib/command/run');
-const test = require('supertape');
+const {promisify} = require('util');
 
-test('longrun: run', (t) => {
+const test = require('supertape');
+const tryToCatch = require('try-to-catch');
+
+const run = promisify(require('../../lib/command/run'));
+
+test('longrun: run', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
@@ -14,13 +18,13 @@ test('longrun: run', (t) => {
         name: 'patch',
     };
     
-    run(runners, runItem, (error) => {
-        t.notOk(error, 'should not be error');
-        t.end();
-    });
+    const [error] = await tryToCatch(run, runners, runItem);
+    
+    t.notOk(error, 'should not be error');
+    t.end();
 });
 
-test('longrun: run: --all', (t) => {
+test('longrun: run: --all', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
@@ -36,24 +40,24 @@ test('longrun: run: --all', (t) => {
         all: true,
     };
     
-    run(runners, runItem, (error) => {
-        t.notOk(error, 'should not be error');
-        t.end();
-    });
+    const [error] = await tryToCatch(run, runners, runItem);
+    
+    t.notOk(error, 'should not be error');
+    t.end();
 });
 
-test('longrun: run: error: empty name', (t) => {
+test('longrun: run: error: empty name', async (t) => {
     const runItem = {
         name: '',
     };
     
-    run([], runItem, (error) => {
-        t.equal(error.message, 'name could not be empty');
-        t.end();
-    });
+    const [error] = await tryToCatch(run, [], runItem);
+    
+    t.equal(error.message, 'name could not be empty');
+    t.end();
 });
 
-test('longrun: run: error', (t) => {
+test('longrun: run: error', async (t) => {
     const runners = [{
         name: 'patch',
         command: 'echo patch',
@@ -64,9 +68,9 @@ test('longrun: run: error', (t) => {
         name: 'no name',
     };
     
-    run(runners, runItem, (error) => {
-        t.equal(error.message, 'runner with name "no name" doesn\'t exist');
-        t.end();
-    });
+    const [error] = await tryToCatch(run, runners, runItem);
+    
+    t.equal(error.message, 'runner with name "no name" doesn\'t exist');
+    t.end();
 });
 
