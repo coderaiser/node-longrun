@@ -4,7 +4,6 @@ Run set of commands in group of directories. Based on [runny](https://github.com
 
 ![Logo][LogoURL]
 
-
 ## Install
 
 `npm i longrun -g`
@@ -95,7 +94,7 @@ From the inside `~/.longrun.json` it is just an array of `runny` objects that co
     "command": "pwd",
     "directories": [
         "~/longrun",
-        "~/cloudcmd",
+        "~/cloudcmd"
     ]
 }, {
     "command": "whoami",
@@ -109,13 +108,13 @@ From the inside `~/.longrun.json` it is just an array of `runny` objects that co
 
 ```js
 const longrun = require('longrun');
-const runner = longrun([
+const runner = longrun({
     command: 'pwd',
     directories: [
         '~/longrun',
-        '~/cloudcmd'
-    ]
-]);
+        '~/cloudcmd',
+    ],
+});
 
 runner.on('data', (data) => process.stdout.write(data))
     .on('error', (error) => process.stderr.write(error))
@@ -130,17 +129,14 @@ runner.on('data', (data) => process.stdout.write(data))
 
 MIT
 
-[NPMIMGURL]:                https://img.shields.io/npm/v/longrun.svg?style=flat
-[BuildStatusIMGURL]:        https://img.shields.io/travis/coderaiser/node-longrun/master.svg?style=flat
-[DependencyStatusIMGURL]:   https://img.shields.io/david/coderaiser/node-longrun.svg?style=flat
-[LicenseIMGURL]:            https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
-[NPMURL]:                   https://npmjs.org/package/longrun "npm"
-[BuildStatusURL]:           https://travis-ci.org/coderaiser/node-longrun  "Build Status"
-[DependencyStatusURL]:      https://david-dm.org/coderaiser/node-longrun "Dependency Status"
-[LicenseURL]:               https://tldrlegal.com/license/mit-license "MIT License"
-
-[CoverageURL]:              https://coveralls.io/github/coderaiser/node-longrun?branch=master
-[CoverageIMGURL]:           https://coveralls.io/repos/coderaiser/node-longrun/badge.svg?branch=master&service=github
-
-[LogoURL]:                  https://github.com/coderaiser/longrun/raw/master/longrun.jpg
-
+[NPMIMGURL]: https://img.shields.io/npm/v/longrun.svg?style=flat
+[BuildStatusIMGURL]: https://img.shields.io/travis/coderaiser/node-longrun/master.svg?style=flat
+[DependencyStatusIMGURL]: https://img.shields.io/david/coderaiser/node-longrun.svg?style=flat
+[LicenseIMGURL]: https://img.shields.io/badge/license-MIT-317BF9.svg?style=flat
+[NPMURL]: https://npmjs.org/package/longrun "npm"
+[BuildStatusURL]: https://travis-ci.org/coderaiser/node-longrun "Build Status"
+[DependencyStatusURL]: https://david-dm.org/coderaiser/node-longrun "Dependency Status"
+[LicenseURL]: https://tldrlegal.com/license/mit-license "MIT License"
+[CoverageURL]: https://coveralls.io/github/coderaiser/node-longrun?branch=master
+[CoverageIMGURL]: https://coveralls.io/repos/coderaiser/node-longrun/badge.svg?branch=master&service=github
+[LogoURL]: https://github.com/coderaiser/longrun/raw/master/longrun.jpg

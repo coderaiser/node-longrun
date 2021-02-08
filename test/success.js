@@ -8,7 +8,7 @@ test('longrun: success: should set first argument null', (t) => {
     const fn = stub();
     
     success(fn, 'hello');
-    t.ok(fn.calledWith(null, 'hello'));
+    t.calledWith(fn, [null, 'hello']);
     t.end();
 });
 
