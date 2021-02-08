@@ -63,6 +63,6 @@
     "tildify": "^2.0.0",
     "try-to-catch": "^3.0.0",
     "writejson": "^3.0.0",
-    "yargs": "^15.3.1"
+    "yargs": "^16.2.0"
   }
 }
