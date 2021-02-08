@@ -1,5 +1,7 @@
 'use strict';
 
+const tryCatch = require('try-catch');
+
 const {
     once,
     EventEmitter,
@@ -10,7 +12,8 @@ const longrun = require('..');
 const test = require('supertape');
 
 test('longrun: arguments: no runners', (t) => {
-    t.throws(longrun, /runItems should be an array!/, 'should throw when no runners');
+    const [error] = tryCatch(longrun);
+    t.equal(error.message, 'runItems should be an array!', 'should throw when no runners');
     t.end();
 });
 

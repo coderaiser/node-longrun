@@ -50,7 +50,7 @@ test('longrun: add directory to runner', async (t) => {
     
     const [error] = await tryToCatch(add, runners, runItem);
     
-    t.equal(error && error.message, 'current directory already in runner "patch"', 'should return error');
+    t.equal(error?.message, 'current directory already in runner "patch"', 'should return error');
     t.end();
 });
 

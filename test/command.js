@@ -1,5 +1,7 @@
 'use strict';
 
+const tryCatch = require('try-catch');
+
 const command = require('../lib/command');
 const test = require('supertape');
 
@@ -30,29 +32,31 @@ test('longrun: command: can not find', (t) => {
         ],
     }];
     
-    const fn = () => command('patch', 'wisdom patch', runner);
-    t.throws(fn, 'should throw when name not found');
+    const [error] = tryCatch(command, 'patch', 'wisdom patch', runner);
+    t.ok(error, 'should throw when name not found');
     t.end();
 });
 
 test('longrun: command: arguments: no name', (t) => {
     const fn = command;
     
-    t.throws(fn, /name should be string!/, 'should throw when no name');
+    const [error] = tryCatch(fn);
+    
+    t.equal(error.message, 'name should be string!', 'should throw when no name');
     t.end();
 });
 
 test('longrun: command: arguments: no command', (t) => {
-    const fn = () => command('hello');
+    const [error] = tryCatch(command, 'hello');
     
-    t.throws(fn, /command should be string!/, 'should throw when no command');
+    t.equal(error.message, 'command should be string!', 'should throw when no command');
     t.end();
 });
 
 test('longrun: command: arguments: no runners', (t) => {
-    const fn = () => command('hello', 'wisdom patch');
+    const [error] = tryCatch(command, 'hello', 'wisdom patch');
     
-    t.throws(fn, /runners should be an array!/, 'should throw when no runners');
+    t.equal(error.message, 'runners should be an array!', 'should throw when no runners');
     t.end();
 });
 

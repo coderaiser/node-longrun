@@ -1,5 +1,7 @@
 'use strict';
 
+const tryCatch = require('try-catch');
+
 const directory = require('../lib/directory');
 const test = require('supertape');
 
@@ -30,9 +32,9 @@ test('longrun: directory: add: name absent', (t) => {
         ],
     }];
     
-    const fn = () => directory.add('patch', '~/longrun', runners);
+    const [error] = tryCatch(directory.add, 'patch', '~/longrun', runners);
     
-    t.throws(fn, /name "patch" is absent in runners/, 'should throw when name not found');
+    t.equal(error.message, 'name "patch" is absent in runners', 'should throw when name not found');
     t.end();
 });
 
@@ -63,29 +65,29 @@ test('longrun: directory: remove: directory absent', (t) => {
         ],
     }];
     
-    const fn = () => directory.remove('master', '~/cloudcmd', runners);
+    const [error] = tryCatch(directory.remove, 'master', '~/cloudcmd', runners);
     
-    t.throws(fn, /current directory is absent in runner "master"/, 'should throw when drectory not found');
+    t.equal(error.message, 'current directory is absent in runner "master"', 'should throw when drectory not found');
     t.end();
 });
 
 test('longrun: directory: arguments: no name', (t) => {
-    const fn = () => directory.add();
+    const [error] = tryCatch(directory.add);
     
-    t.throws(fn, /name should be string!/, 'should throw when no name');
+    t.equal(error.message, 'name should be string!', 'should throw when no name');
     t.end();
 });
 
 test('longrun: directory: arguments: no directory', (t) => {
-    const fn = () => directory.add('hello');
+    const [error] = tryCatch(directory.add, 'hello');
     
-    t.throws(fn, /directory should be string!/, 'should throw when no directory');
+    t.equal(error.message, 'directory should be string!', 'should throw when no directory');
     t.end();
 });
 
 test('longrun: directory: arguments: no runners', (t) => {
-    const fn = () => directory.add('hello', '~');
+    const [error] = tryCatch(directory.add, 'hello', '~');
     
-    t.throws(fn, /runners should be an array!/, 'should throw when no runners');
+    t.equal(error.message, 'runners should be an array!', 'should throw when no runners');
     t.end();
 });

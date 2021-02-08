@@ -1,6 +1,6 @@
 {
   "name": "longrun",
-  "version": "6.0.3",
+  "version": "6.0.4",
   "description": "Run set of commands in group of directories",
   "main": "lib/longrun.js",
   "bin": {
@@ -45,12 +45,13 @@
     "coveralls": "^3.0.0",
     "eslint": "^7.6.0",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-putout": "^5.0.1",
-    "madrun": "^7.0.2",
+    "eslint-plugin-putout": "^7.1.1",
+    "madrun": "^8.6.4",
     "nodemon": "^2.0.2",
     "nyc": "^15.0.0",
-    "putout": "^9.11.3",
-    "supertape": "^2.0.1"
+    "putout": "^14.1.3",
+    "supertape": "^4.9.1",
+    "try-catch": "^3.0.0"
   },
   "dependencies": {
     "apart": "^2.0.0",
@@ -63,6 +64,6 @@
     "tildify": "^2.0.0",
     "try-to-catch": "^3.0.0",
     "writejson": "^3.0.0",
-    "yargs": "^15.3.1"
+    "yargs": "^16.2.0"
   }
 }

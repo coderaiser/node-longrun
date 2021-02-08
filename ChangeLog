@@ -1,3 +1,19 @@
+2021.02.08, v6.0.4
+
+feature:
+- (package) putout v14.1.3
+- (package) eslint-plugin-putout v7.1.1
+- (package) madrun v8.6.4
+- (package) supertape v4.9.1
+- (package) yargs v16.2.0
+- (package) eslint-plugin-putout v5.0.1
+- (package) madrun v7.0.2
+- (package) supertape v2.0.1
+- (package) putout v9.11.3
+- (package) @cloudcmd/stub v3.1.0
+- (package) eslint v7.6.0
+
+
 2020.03.31, v6.0.3
 
 fix:
