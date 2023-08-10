@@ -38,7 +38,7 @@
   },
   "homepage": "https://github.com/coderaiser/node-longrun",
   "engines": {
-    "node": ">=10"
+    "node": ">=16"
   },
   "devDependencies": {
     "eslint": "^8.46.0",
