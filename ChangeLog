@@ -1,3 +1,8 @@
+2023.08.10, v7.0.1
+
+fix:
+- b81a271 disable yargs.version
+
 2023.08.10, v7.0.0
 
 feature:
